@@ -1,86 +1,112 @@
 package br.com.cielo.settlement.financialadjustment;
 
-import java.io.BufferedReader;
-import java.io.IOException;
-import java.io.InputStreamReader;
-import java.util.Hashtable;
+import java.util.ArrayList;
+import java.util.Enumeration;
+import java.util.List;
+import java.util.logging.Logger;
 
+import javax.annotation.PostConstruct;
+import javax.annotation.PreDestroy;
+import javax.ejb.LocalBean;
+import javax.ejb.Stateless;
 import javax.jms.JMSException;
+import javax.jms.ObjectMessage;
 import javax.jms.Queue;
+import javax.jms.QueueBrowser;
 import javax.jms.QueueConnection;
 import javax.jms.QueueConnectionFactory;
 import javax.jms.QueueSender;
 import javax.jms.QueueSession;
 import javax.jms.Session;
-import javax.jms.TextMessage;
-import javax.naming.Context;
 import javax.naming.InitialContext;
 import javax.naming.NamingException;
 
+@Stateless
+@LocalBean
 public class SettlementFinancialAdjustmentClient {
 	public final static String JNDI_FACTORY = "weblogic.jndi.WLInitialContextFactory";
 	public final static String JMS_FACTORY = "settlementFinancialAdjustmentCF";
 	public final static String QUEUE = "settlementFinancialAdjustmentQueue";
 
-	private QueueConnectionFactory qconFactory;
-	private QueueConnection qcon;
-	private QueueSession qsession;
-	private QueueSender qsender;
-	private Queue queue;
-	private TextMessage msg;
+	private QueueSession session = null;
+    private QueueSender sender = null;
+    private QueueConnection connection = null;
+    private Queue destQueue;
+    private Queue destQueueDLQ;
 
-	public void init(Context ctx, String queueName) throws NamingException, JMSException {
-		qconFactory = (QueueConnectionFactory) ctx.lookup(JMS_FACTORY);
-		qcon = qconFactory.createQueueConnection();
-		qsession = qcon.createQueueSession(false, Session.AUTO_ACKNOWLEDGE);
-		queue = (Queue) ctx.lookup(queueName);
-		qsender = qsession.createSender(queue);
-		msg = qsession.createTextMessage();
-		qcon.start();
-	}
+    @PostConstruct
+    public void init() {
+        try {
+            InitialContext ic = new InitialContext();
+            QueueConnectionFactory qcf = (QueueConnectionFactory) ic
+                            .lookup(JMS_FACTORY);
+            this.destQueue = (Queue) ic.lookup(QUEUE);
+            this.destQueueDLQ = (Queue) ic.lookup(QUEUE);
 
-	public void send(String message) throws JMSException {
-		msg.setText(message);
-		qsender.send(msg);
-	}
+            this.connection = qcf.createQueueConnection();
+            this.session = this.connection.createQueueSession(false, Session.AUTO_ACKNOWLEDGE);
+            this.sender = this.session.createSender(this.destQueue);
+            // this.sender.setDeliveryMode(DeliveryMode.NON_PERSISTENT);
+            ic.close();
+        } catch (NamingException | JMSException e) {
+            e.printStackTrace();
+        }
+    }
 
-	public void close() throws JMSException {
-		qsender.close();
-		qsession.close();
-		qcon.close();
-	}
+    @PreDestroy
+    public void finilize() {
+        try {
+            this.connection.close();
+        } catch (JMSException e) {
+            e.printStackTrace();
+        }
+    }
 
-	public static void main(String[] args) throws Exception {
-		InitialContext ic = getInitialContext("t3://localhost:7001");
-		SettlementFinancialAdjustmentClient qs = new SettlementFinancialAdjustmentClient();
-		qs.init(ic, QUEUE);
-		readAndSend(qs);
-		qs.close();
-	}
+    /**
+     * Envia os produtos a serem atualizados para a fila.
+     *
+     * @param productsToUpdate
+     */
+    public void send(final String message) {
+        try {
+    		Logger.getLogger(this.getClass().getName()).info("SettlementFinancialAdjustmentClient: "+message);
+            ObjectMessage objectMessage = this.session.createObjectMessage(message);
+            objectMessage.setStringProperty("message", message);
+            this.sender.send(objectMessage);
+        } catch (JMSException e) {
+            Logger.getLogger(this.getClass().getName()).info("ContractedProductEditPriceMDBClient.send" + e);
+        }
+    }
 
-	private static void readAndSend(SettlementFinancialAdjustmentClient qs) throws IOException, JMSException {
-		String line = "Test Message Body with counter = ";
-		BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
-		boolean readFlag = true;
-		System.out.println("ntStart Sending Messages (Enter QUIT to Stop):n");
-		while (readFlag) {
-			System.out.print("&lt;Msg_Sender&gt; ");
-			String msg = br.readLine();
-			System.out.print(msg);
-			if (msg.equals("QUIT") || msg.equals("quit")) {
-				qs.send(msg);
-				System.exit(0);
-			}
-			qs.send(msg);
-			System.out.println();
-		}
-		br.close();
-	}
+    public List<ObjectMessage> browseQueue() {
+        return this.browse(this.destQueue);
+    }
 
-	private static InitialContext getInitialContext(String url) throws NamingException {
-		Hashtable env = new Hashtable();
-		env.put(Context.INITIAL_CONTEXT_FACTORY, JNDI_FACTORY);
-		env.put(Context.PROVIDER_URL, url);
-		return new InitialContext(env);
-	}
+    public List<ObjectMessage> browseQueueDLQ() {
+        return this.browse(this.destQueueDLQ);
+    }
+
+    private List<ObjectMessage> browse(final Queue destQueue) {
+        List<ObjectMessage> list = new ArrayList<ObjectMessage>();
+
+        try {
+            QueueBrowser browser;
+            browser = this.session.createBrowser(destQueue);
+
+            @SuppressWarnings("rawtypes")
+            Enumeration msgs = browser.getEnumeration();
+
+            if (!msgs.hasMoreElements()) {
+                System.out.println("No messages in queue");
+            } else {
+                while (msgs.hasMoreElements()) {
+                    ObjectMessage objectMessage = (ObjectMessage) msgs.nextElement();
+                    list.add(objectMessage);
+                }
+            }
+        } catch (JMSException e) {
+            e.printStackTrace();
+        }
+        return list;
+    }
 }

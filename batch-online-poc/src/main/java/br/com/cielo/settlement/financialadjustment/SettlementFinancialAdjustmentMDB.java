@@ -32,14 +32,13 @@ public class SettlementFinancialAdjustmentMDB implements MessageListener {
         try {
         	//DomainObject domainObject;
             if (message instanceof ObjectMessage) {
-                System.out.println("Queue: ObjectMessage recebida em " + new Date());
                 ObjectMessage msg = (ObjectMessage) message;
 //                domainObject = (DomainObject) msg.getObject();
+                Logger.getLogger(this.getClass().getName()).info("SettlementFinancialAdjustmentMDB: "+msg);
             } else if (message instanceof TextMessage) {
-                System.out.println("Queue:  TextMessage recebida em " + new Date());
                 TextMessage msg = (TextMessage) message;
-                System.out.println("Messagem: " + msg.getText());
 //                domainObject = new Gson().fromJson(msg.getText(), DomainObject.class);
+                Logger.getLogger(this.getClass().getName()).info("SettlementFinancialAdjustmentMDB: "+msg.getText());
             } else {
             	throw new JMSException("Mensagem inválida para este Queue MDB");
             }

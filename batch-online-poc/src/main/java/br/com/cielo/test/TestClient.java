@@ -1,4 +1,4 @@
-package br.com.cielo.settlement.financialadjustment;
+package br.com.cielo.test;
 
 import java.io.BufferedReader;
 import java.io.IOException;
