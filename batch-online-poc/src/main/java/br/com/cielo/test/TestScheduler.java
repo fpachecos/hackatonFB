@@ -10,16 +10,16 @@ import br.com.cielo.settlement.financialadjustment.SettlementFinancialAdjustment
 
 @Stateless
 public class TestScheduler {
-	
+
 	@EJB
 	private transient SettlementFinancialAdjustmentClient settlementFinancialAdjustmentClient;
-	
+
 	private int count = 1;
-	
-	@Schedule(second="*/1", minute="*", hour="*", persistent=false)
-	public void sendMessage(){
-		String message = "Mensage "+count++;
-		Logger.getLogger(this.getClass().getName()).info("TestScheduler: "+message);
-		settlementFinancialAdjustmentClient.send(message);
+
+	@Schedule(second = "*/1", minute = "*", hour = "*", persistent = false)
+	public void sendMessage() {
+		String message = "Mensage " + count++;
+		Logger.getLogger(this.getClass().getName()).info("TestScheduler: " + message);
+		settlementFinancialAdjustmentClient.send(new Object());
 	}
 }
