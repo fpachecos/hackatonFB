@@ -20,6 +20,6 @@ public class TestScheduler {
 	public void sendMessage() {
 		String message = "Mensage " + count++;
 		Logger.getLogger(this.getClass().getName()).info("TestScheduler: " + message);
-		settlementFinancialAdjustmentClient.send(new Object());
+		settlementFinancialAdjustmentClient.send(new TesteDataVO());
 	}
 }

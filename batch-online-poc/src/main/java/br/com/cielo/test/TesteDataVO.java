@@ -8,6 +8,10 @@ import java.util.List;
 
 public class TesteDataVO implements Serializable {
 
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = -3861007569964382080L;
 	private Integer nuRequest;
 	private String requestType;
 	private Date dtRequest;
@@ -31,6 +35,8 @@ public class TesteDataVO implements Serializable {
 	private SimpleDateFormat formatterDiaMesAno = new SimpleDateFormat("dd/MM/yyyy HH:mm:ss");
 	private SimpleDateFormat formatterDiaMesAnoResumido = new SimpleDateFormat("dd/MM/yy");
 
+	public TesteDataVO(){}
+	
 	public TesteDataVO(List<String> listaCampos) throws ParseException {
 		for (int i = 0; i < listaCampos.size(); i++) {
 			switch (CamposEnum.values()[i]) {
