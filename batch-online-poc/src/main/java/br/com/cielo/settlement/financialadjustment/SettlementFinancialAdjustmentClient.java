@@ -21,6 +21,9 @@ import javax.jms.Session;
 import javax.naming.InitialContext;
 import javax.naming.NamingException;
 
+/**
+ * Classe responsável por enviar mensagem para fila de ajuste financeiro
+ */
 @Stateless
 @LocalBean
 public class SettlementFinancialAdjustmentClient {

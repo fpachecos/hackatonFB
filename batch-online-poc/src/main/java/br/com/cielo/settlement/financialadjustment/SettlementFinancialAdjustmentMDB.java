@@ -2,7 +2,6 @@
 package br.com.cielo.settlement.financialadjustment;
 
 
-import java.util.Date;
 import java.util.logging.Logger;
 
 import javax.ejb.ActivationConfigProperty;
@@ -13,6 +12,9 @@ import javax.jms.MessageListener;
 import javax.jms.ObjectMessage;
 import javax.jms.TextMessage;
 
+/**
+ * Classe responsável por receber mensagem da fila de ajuste financeiro
+ */
 @MessageDriven(activationConfig = {
 	    @ActivationConfigProperty(propertyName = "destinationType", propertyValue = "javax.jms.Queue"),
 	    @ActivationConfigProperty(propertyName = "connectionFactoryJndiName",
@@ -34,7 +36,7 @@ public class SettlementFinancialAdjustmentMDB implements MessageListener {
             if (message instanceof ObjectMessage) {
                 ObjectMessage msg = (ObjectMessage) message;
 //                domainObject = (DomainObject) msg.getObject();
-                Logger.getLogger(this.getClass().getName()).info("SettlementFinancialAdjustmentMDB: "+msg);
+                Logger.getLogger(this.getClass().getName()).info("SettlementFinancialAdjustmentMDB: "+msg.getStringProperty("message"));
             } else if (message instanceof TextMessage) {
                 TextMessage msg = (TextMessage) message;
 //                domainObject = new Gson().fromJson(msg.getText(), DomainObject.class);
