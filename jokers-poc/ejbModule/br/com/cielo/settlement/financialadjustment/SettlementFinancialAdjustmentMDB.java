@@ -1,6 +1,7 @@
 
 package br.com.cielo.settlement.financialadjustment;
 
+import java.util.ArrayList;
 import java.util.logging.Logger;
 
 import javax.ejb.ActivationConfigProperty;
@@ -37,17 +38,19 @@ public class SettlementFinancialAdjustmentMDB implements MessageListener {
 			if (message instanceof ObjectMessage) {
 				ObjectMessage msg = (ObjectMessage) message;
 
-				if (msg.getObject() instanceof SettlementFinancialAdjustment) {
+				if (msg.getObject() instanceof ArrayList) {
 					// domainObject = (DomainObject) msg.getObject();
 //					Logger.getLogger(this.getClass().getName())
 //							.info("SettlementFinancialAdjustmentMDB Obj: " + msg.getObject().toString());
-					SettlementFinancialAdjustment entity = (SettlementFinancialAdjustment) msg.getObject();
+					ArrayList<SettlementFinancialAdjustment> entity = (ArrayList<SettlementFinancialAdjustment>) msg.getObject();
 					// entity.setNuCustomer(123L);
 					// entity.setDtSettlementAdjustment(new Date());
 					// entity.setVlGross(new BigDecimal(120));
 					// entity.setCdMovementType(MovementTypeEnum.CREDIT_ADJUST);
 					// entity.setNuModCustomer(1);
-					financialAdjustmentProcessor.process(entity);
+					for (SettlementFinancialAdjustment settlementFinancialAdjustment : entity) {
+						financialAdjustmentProcessor.process(settlementFinancialAdjustment);
+					}
 				}
 			} else if (message instanceof TextMessage) {
 				TextMessage msg = (TextMessage) message;

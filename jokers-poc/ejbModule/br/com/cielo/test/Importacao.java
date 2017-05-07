@@ -29,7 +29,7 @@ public class Importacao {
 
 	private String delimitador = ";";
 	private Logger logger = Logger.getLogger(this.getClass().getName());
-	private int VALOR_MAXIMO = 1;
+	private int VALOR_MAXIMO = 50000;
 	private String PULA_LINHA = "/r/n";
 	// private String ESPACO = " ";
 	private String VIRGULA = ",";
@@ -114,22 +114,23 @@ public class Importacao {
 	 * @param mapaErro
 	 */
 	private void processaMapa(Map<Integer, List<String>> mapa2, List<ErroVO> listaError) {
+		ArrayList<SettlementFinancialAdjustment> list = new ArrayList<SettlementFinancialAdjustment>();
 		int linhaCorrente = -1;
 		for (Map.Entry<Integer, List<String>> listaCampos : mapa2.entrySet()) {
 			linhaCorrente = listaCampos.getKey();
 			SettlementFinancialAdjustment settlementAdjustment = null;
 			try {
 				settlementAdjustment = new SettlementFinancialAdjustment(listaCampos.getValue());
+				list.add(settlementAdjustment);
 			} catch (ParseException e) {
 				e.printStackTrace();
 				listaError.add(new ErroVO(linhaCorrente, mapa2.get(linhaCorrente), ERRO_PARCER));
 			}
-
-			try {
-				settlementFinancialAdjustmentClient.send(settlementAdjustment);
-			} catch (Exception e) {
-				listaError.add(new ErroVO(linhaCorrente, mapa2.get(linhaCorrente), ERRO_FILA));
-			}
+		}
+		try {
+			settlementFinancialAdjustmentClient.send(list);
+		} catch (Exception e) {
+			listaError.add(new ErroVO(linhaCorrente, mapa2.get(linhaCorrente), ERRO_FILA));
 		}
 	}
 

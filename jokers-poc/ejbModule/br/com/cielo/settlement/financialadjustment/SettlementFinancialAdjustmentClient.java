@@ -1,11 +1,14 @@
 package br.com.cielo.settlement.financialadjustment;
 
+import java.util.ArrayList;
+import java.util.List;
 import java.util.logging.Logger;
 
 import javax.annotation.PostConstruct;
 import javax.annotation.PreDestroy;
 import javax.ejb.LocalBean;
 import javax.ejb.Stateless;
+import javax.jms.DeliveryMode;
 import javax.jms.JMSException;
 import javax.jms.ObjectMessage;
 import javax.jms.Queue;
@@ -42,9 +45,8 @@ public class SettlementFinancialAdjustmentClient {
 				this.destQueue = (Queue) ic.lookup(QUEUE);
 				
 				this.connection = qcf.createQueueConnection();
-				this.session = this.connection.createQueueSession(false, Session.CLIENT_ACKNOWLEDGE);
+				this.session = this.connection.createQueueSession(false, Session.AUTO_ACKNOWLEDGE);
 				this.sender = this.session.createSender(this.destQueue);
-				this.sender.setPriority(1);
 				ic.close();
 			} catch (NamingException | JMSException e) {
 				// TODO Auto-generated catch block
@@ -69,7 +71,7 @@ public class SettlementFinancialAdjustmentClient {
 	 *
 	 * @param productsToUpdate
 	 */
-	public void send(final SettlementFinancialAdjustment settlementFinancialAdjustment) {
+	public void send(final ArrayList<SettlementFinancialAdjustment> settlementFinancialAdjustment) {
 		try {
 //			Logger.getLogger(this.getClass().getName())
 //					.info("SettlementFinancialAdjustment: " + settlementFinancialAdjustment.toString());
