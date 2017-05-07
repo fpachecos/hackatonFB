@@ -35,7 +35,7 @@ public class SettlementFinancialAdjustment implements Serializable {
 		for (int i = 0; i < listaCampos.size(); i++) {
 			switch (CamposEnum.values()[i]) {
 			case NU_REQUEST:
-				this.setNuLoadFileId(listaCampos.get(i).isEmpty() ? null : Long.valueOf(listaCampos.get(i)));
+				this.setNuRequest(listaCampos.get(i).isEmpty() ? null : Long.valueOf(listaCampos.get(i)));
 				break;
 			case CD_REQUEST_TYPE:
 				this.setRequestType(listaCampos.get(i).isEmpty() ? null : RequestTypeEnum.parse(listaCampos.get(i)));

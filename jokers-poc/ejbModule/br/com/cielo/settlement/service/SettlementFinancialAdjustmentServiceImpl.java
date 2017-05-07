@@ -13,8 +13,6 @@ import java.util.Date;
 import javax.ejb.EJB;
 import javax.ejb.Stateless;
 
-import org.apache.commons.lang3.math.NumberUtils;
-
 import br.com.cielo.common.exception.BusinessException;
 import br.com.cielo.settlement.adjustmentpaymenttype.filter.AdjustPaymentTypeFilter.AdjustPaymentTypeFilterBuilder;
 import br.com.cielo.settlement.adjustmentpaymenttype.service.AdjustPaymentTypeService;
@@ -28,6 +26,7 @@ import br.com.cielo.settlement.entity.Product;
 import br.com.cielo.settlement.entity.SettlementAdjustment;
 import br.com.cielo.settlement.entity.SettlementFinancialAdjustment;
 import br.com.cielo.settlement.entity.SettlementTypeEnum;
+import br.com.cielo.settlement.repository.SettlementFinancialAdjustmentRepository;
 
 /**
  * Implementeção do serviços, ajustes financeiros
@@ -63,6 +62,8 @@ public class SettlementFinancialAdjustmentServiceImpl implements SettlementFinan
     @EJB
     private SettlementAdjustmentRepository settlementAdjustmentRepository;
     
+    @EJB
+    private SettlementFinancialAdjustmentRepository settlementFinancialAdjustmentRepository; 
     
     @EJB
     private AdjustPaymentTypeService adjustPaymentTypeService;
@@ -217,6 +218,8 @@ public class SettlementFinancialAdjustmentServiceImpl implements SettlementFinan
 		financialAdjustment.setAdjustment(adjustment);
 		
 		settlementAdjustmentRepository.createAdjustment(financialAdjustment);
+		
+		settlementFinancialAdjustmentRepository.insertFinanceAdjustmentHistory(financialAdjustment);
 
 		return financialAdjustment;
 

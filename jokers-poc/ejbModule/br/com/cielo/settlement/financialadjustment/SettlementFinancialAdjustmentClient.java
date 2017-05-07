@@ -1,8 +1,5 @@
 package br.com.cielo.settlement.financialadjustment;
 
-import java.util.ArrayList;
-import java.util.Enumeration;
-import java.util.List;
 import java.util.logging.Logger;
 
 import javax.annotation.PostConstruct;
@@ -12,7 +9,6 @@ import javax.ejb.Stateless;
 import javax.jms.JMSException;
 import javax.jms.ObjectMessage;
 import javax.jms.Queue;
-import javax.jms.QueueBrowser;
 import javax.jms.QueueConnection;
 import javax.jms.QueueConnectionFactory;
 import javax.jms.QueueSender;
@@ -37,33 +33,24 @@ public class SettlementFinancialAdjustmentClient {
 	private QueueSender sender = null;
 	private QueueConnection connection = null;
 	private Queue destQueue;
-	private Queue destQueueDLQ;
-
 	@PostConstruct
-	public void init() {
-		try {
+	private void init() throws NamingException, JMSException {
 			InitialContext ic = new InitialContext();
 			QueueConnectionFactory qcf = (QueueConnectionFactory) ic.lookup(JMS_FACTORY);
 			this.destQueue = (Queue) ic.lookup(QUEUE);
-			this.destQueueDLQ = (Queue) ic.lookup(QUEUE);
 
 			this.connection = qcf.createQueueConnection();
 			this.session = this.connection.createQueueSession(false, Session.AUTO_ACKNOWLEDGE);
 			this.sender = this.session.createSender(this.destQueue);
-			// this.sender.setDeliveryMode(DeliveryMode.NON_PERSISTENT);
+			this.sender.setPriority(1);
 			ic.close();
-		} catch (NamingException | JMSException e) {
-			e.printStackTrace();
-		}
 	}
-
+	
 	@PreDestroy
-	public void finilize() {
-		try {
-			this.connection.close();
-		} catch (JMSException e) {
-			e.printStackTrace();
-		}
+	private void end() throws JMSException {
+		this.connection.close();
+		this.session.close();
+		this.sender.close();
 	}
 
 	/**
@@ -77,40 +64,9 @@ public class SettlementFinancialAdjustmentClient {
 //					.info("SettlementFinancialAdjustment: " + settlementFinancialAdjustment.toString());
 			ObjectMessage objectMessage = this.session.createObjectMessage(settlementFinancialAdjustment);
 			this.sender.send(objectMessage);
+			this.session.commit();
 		} catch (JMSException e) {
 			Logger.getLogger(this.getClass().getName()).info("ContractedProductEditPriceMDBClient.send" + e);
 		}
-	}
-
-	public List<ObjectMessage> browseQueue() {
-		return this.browse(this.destQueue);
-	}
-
-	public List<ObjectMessage> browseQueueDLQ() {
-		return this.browse(this.destQueueDLQ);
-	}
-
-	private List<ObjectMessage> browse(final Queue destQueue) {
-		List<ObjectMessage> list = new ArrayList<ObjectMessage>();
-
-		try {
-			QueueBrowser browser;
-			browser = this.session.createBrowser(destQueue);
-
-			@SuppressWarnings("rawtypes")
-			Enumeration msgs = browser.getEnumeration();
-
-			if (!msgs.hasMoreElements()) {
-				System.out.println("No messages in queue");
-			} else {
-				while (msgs.hasMoreElements()) {
-					ObjectMessage objectMessage = (ObjectMessage) msgs.nextElement();
-					list.add(objectMessage);
-				}
-			}
-		} catch (JMSException e) {
-			e.printStackTrace();
-		}
-		return list;
 	}
 }
