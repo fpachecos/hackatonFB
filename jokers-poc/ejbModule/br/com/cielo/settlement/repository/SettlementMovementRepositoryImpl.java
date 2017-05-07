@@ -8,6 +8,7 @@ import javax.persistence.Query;
 import br.com.cielo.settlement.entity.CardAssociation;
 import br.com.cielo.settlement.entity.SettlementFinancialMovement;
 import br.com.cielo.settlement.entity.SettlementMovement;
+import br.com.cielo.settlement.repository.provider.MovementCompanyComplementParamProvider;
 import br.com.cielo.settlement.repository.provider.SettlementFinancialMovementParamProvider;
 
 /**
@@ -41,14 +42,17 @@ public class SettlementMovementRepositoryImpl implements SettlementMovementRepos
 	@Override
 	public void insertMovementRelAdjustment(SettlementFinancialMovement settlementFinancialMovement) {
 		Query query = entityManager.createNativeQuery(SettlementMovementRepository.INSERT_SETTLEMENT_REL_MOVEMENT_ADJUSTMENT);
-		query.setParameter("NU_MOD_CUSTOMER",
+    	int index=1;
+		query.setParameter(index++,
 				settlementFinancialMovement.getSettlementMovement().getCustomerModNumber());
-		query.setParameter("NU_FINANCIAL_MOVEMENT",
+		query.setParameter(index++,
 				settlementFinancialMovement.getSettlementMovement().getNumberFinancialMovement());
-		query.setParameter("NU_FINANCIAL_ADJUSTMENT", settlementFinancialMovement.getSettlementMovement()
+		query.setParameter(index++, settlementFinancialMovement.getSettlementMovement()
 				.getMovementRelAdjustment().getNumberFinancialAdjustement());
-		query.setParameter("DT_SETTLEMENT", settlementFinancialMovement.getSettlementMovement().getSettlementDate());
-		query.setParameter("DT_BATCH", settlementFinancialMovement.getSettlementMovement().getBatchDate());
+		query.setParameter(index++, settlementFinancialMovement.getSettlementMovement().getSettlementDate());
+		query.setParameter(index++, settlementFinancialMovement.getSettlementMovement().getBatchDate());
+		query.setParameter(index++,
+				settlementFinancialMovement.getSettlementMovement().getCustomerModNumber());
 		query.executeUpdate();
     }
 	
@@ -56,21 +60,24 @@ public class SettlementMovementRepositoryImpl implements SettlementMovementRepos
     public void insertAdjustmentRelMovement(SettlementFinancialMovement settlementFinancialMovement) {
 		Query query = entityManager
 				.createNativeQuery(SettlementMovementRepository.INSERT_SETTLEMENT_REL_ADJUSTMENT_MOVEMENT);
-		query.setParameter("NU_MOD_CUSTOMER",
+    	int index=1;
+		query.setParameter(index++,
 				settlementFinancialMovement.getSettlementMovement().getCustomerModNumber());
-		query.setParameter("NU_FINANCIAL_MOVEMENT",
+		query.setParameter(index++,
 				settlementFinancialMovement.getSettlementMovement().getNumberFinancialMovement());
-		query.setParameter("NU_FINANCIAL_ADJUSTMENT", settlementFinancialMovement.getSettlementMovement()
+		query.setParameter(index++, settlementFinancialMovement.getSettlementMovement()
 				.getMovementRelAdjustment().getNumberFinancialAdjustement());
-		query.setParameter("DT_SETTLEMENT", settlementFinancialMovement.getSettlementMovement().getSettlementDate());
-		query.setParameter("DT_BATCH", settlementFinancialMovement.getSettlementMovement().getBatchDate());
+		query.setParameter(index++, settlementFinancialMovement.getSettlementMovement().getSettlementDate());
+		query.setParameter(index++, settlementFinancialMovement.getSettlementMovement().getBatchDate());
+		query.setParameter(index++,
+				settlementFinancialMovement.getSettlementMovement().getCustomerModNumber());
 		query.executeUpdate();
     }
 	
 	@Override
     public void insertMovementFinancialComplement(SettlementFinancialMovement settlementFinancialMovement) {
 		Query query = entityManager.createNativeQuery(SettlementMovementRepository.INSERT_SETTLEMENT_MOVEMENT_COMPLEMENT);
-		new SettlementFinancialMovementParamProvider().applyParameters(settlementFinancialMovement, query);
+		new MovementCompanyComplementParamProvider().applyParameters(settlementFinancialMovement, query);
 		query.executeUpdate();
     }
 }

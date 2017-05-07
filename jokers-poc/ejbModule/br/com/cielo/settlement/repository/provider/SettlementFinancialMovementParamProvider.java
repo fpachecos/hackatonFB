@@ -22,23 +22,23 @@ import br.com.cielo.settlement.entity.SettlementFinancialMovement;
 public class SettlementFinancialMovementParamProvider {
 
     public void applyParameters(final SettlementFinancialMovement item, Query query) {
-        query.setParameter("DT_BATCH", item.getSettlementMovement().getBatchDate());
-        query.setParameter("CD_PRODUCT", item.getSettlementMovement().getProductCode());
-        query.setParameter("NU_CUSTOMER", item.getSettlementMovement().getCustomerNumber());
-        query.setParameter("DT_SETTLEMENT", item.getSettlementMovement().getSettlementDate());
-        query.setParameter("VL_MOVEMENT_NET", item.getSettlementMovement().getNetMovementValue());
-        query.setParameter("CD_MOVEMENT_TYPE", item.getSettlementMovement().getMovementTypeCode());
-        query.setParameter("VL_MOVEMENT_GROSS", item.getSettlementMovement().getGrossMovementValue());
-        query.setParameter("VL_DAILY_DISCOUNT_AMOUNT", item.getSettlementMovement().getDailyDiscountValueAmt());
-        query.setParameter("NU_LOAD_FILE_ID", item.getSettlementMovement().getLoadFileIdNumber());
-        query.setParameter("CD_FUNDING_CURRENCY", item.getSettlementMovement().getFundingCurrencyCode());
-        query.setParameter("DT_SETTLEMENT_BASE", item.getSettlementMovement().getSettlementBaseDate());
-        query.setParameter("NU_MOD_CUSTOMER", item.getSettlementMovement().getCustomerModNumber());
-        query.setParameter("DT_SETTLEMENT_TRACE", item.getSettlementMovement().getTraceSettlementDate());
-        query.setParameter("CD_MOVEMENT_STATUS", item.getSettlementMovement().getMovementStatusCode());
-        query.setParameter("NU_FINANCIAL_MOVEMENT_TRACE", item.getSettlementMovement()
-                        .getTraceNumberFinancialMovement());
-        query.setParameter("NU_FINANCIAL_MOVEMENT", item.getSettlementMovement().getNumberFinancialMovement());
-        query.setParameter("NU_MOD_CUSTOMER_TRACE", item.getSettlementMovement().getTraceCustomerModNumber());
+    	int index=1;
+        query.setParameter(index++, item.getSettlementMovement().getBatchDate());
+        query.setParameter(index++, item.getSettlementMovement().getProductCode());
+        query.setParameter(index++, item.getSettlementMovement().getCustomerNumber());
+        query.setParameter(index++, item.getSettlementMovement().getSettlementDate());
+        query.setParameter(index++, item.getSettlementMovement().getNetMovementValue());
+        query.setParameter(index++, item.getSettlementMovement().getGrossMovementValue());
+        query.setParameter(index++, item.getSettlementMovement().getDailyDiscountValueAmt());
+        query.setParameter(index++, item.getSettlementMovement().getLoadFileIdNumber());
+        query.setParameter(index++, item.getSettlementMovement().getFundingCurrencyCode());
+        query.setParameter(index++, item.getSettlementMovement()
+        		.getTraceNumberFinancialMovement());
+        query.setParameter(index++, item.getSettlementMovement().getTraceSettlementDate());
+        query.setParameter(index++, item.getSettlementMovement().getTraceCustomerModNumber());
+        query.setParameter(index++, item.getSettlementMovement().getCustomerModNumber());
+        query.setParameter(index++, item.getSettlementMovement().getMovementStatusCode());
+        query.setParameter(index++, item.getSettlementMovement().getMovementTypeCode());
+        query.setParameter(index++, item.getSettlementMovement().getNumberFinancialMovement());
     }
 }

@@ -21,13 +21,14 @@ import br.com.cielo.settlement.entity.SettlementFinancialMovement;
  */
 public class MovementCompanyComplementParamProvider{
 
-    public void createSqlParameterSource(final SettlementFinancialMovement item, Query query) {
-        query.setParameter("DT_SETTLEMENT", item.getSettlementMovement().getSettlementDate());
-        query.setParameter("VL_IC", item.getSettlementMovement().getDailyIcValueAmt());
-        query.setParameter("NU_MOD_CUSTOMER", item.getSettlementMovement().getCustomerModNumber());
-        query.setParameter("NU_FINANCIAL_MOVEMENT", item.getSettlementMovement().getNumberFinancialMovement());
-        query.setParameter("QT_TRANSACTION", item.getSettlementMovement().getMovementQtNumber());
-        query.setParameter("VL_FLEXIBLE_TERM", item.getSettlementMovement().getValueFlexibleTerm());
-        query.setParameter("VL_DISCOUNT_AMOUNT", item.getSettlementMovement().getValueAmountDiscount());
+    public void applyParameters(final SettlementFinancialMovement item, Query query) {
+    	int index=1;
+        query.setParameter(index++, item.getSettlementMovement().getSettlementDate());
+        query.setParameter(index++, item.getSettlementMovement().getCustomerModNumber());
+        query.setParameter(index++, item.getSettlementMovement().getNumberFinancialMovement());
+        query.setParameter(index++, item.getSettlementMovement().getDailyIcValueAmt());
+        query.setParameter(index++, item.getSettlementMovement().getMovementQtNumber());
+        query.setParameter(index++, item.getSettlementMovement().getValueFlexibleTerm());
+        query.setParameter(index++, item.getSettlementMovement().getValueAmountDiscount());
     }
 }

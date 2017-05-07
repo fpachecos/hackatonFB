@@ -21,38 +21,38 @@ public interface SettlementMovementRepository {
                     + " VL_MOVEMENT_GROSS, " + " VL_DAILY_DISCOUNT_AMOUNT, " + " NU_LOAD_FILE_ID, "
                     + " CD_FUNDING_CURRENCY, " + " NU_FINANCIAL_MOVEMENT_TRACE, " + " DT_SETTLEMENT_TRACE, "
                     + " NU_MOD_CUSTOMER_TRACE, " + " NU_MOD_CUSTOMER, " + " CD_MOVEMENT_STATUS, "
-                    + " CD_MOVEMENT_TYPE, " + " NU_FINANCIAL_MOVEMENT " + " ) VALUES ( " + " :DT_BATCH, "
-                    + " :CD_PRODUCT, " + " :NU_CUSTOMER, " + " :DT_SETTLEMENT, " + " :VL_MOVEMENT_NET, "
-                    + " :VL_MOVEMENT_GROSS, " + " :VL_DAILY_DISCOUNT_AMOUNT, " + " :NU_LOAD_FILE_ID, "
-                    + " :CD_FUNDING_CURRENCY, " + " :NU_FINANCIAL_MOVEMENT_TRACE, " + " :DT_SETTLEMENT_TRACE, "
-                    + " :NU_MOD_CUSTOMER_TRACE, " + " :NU_MOD_CUSTOMER, " + " :CD_MOVEMENT_STATUS, "
-                    + " :CD_MOVEMENT_TYPE, " + " :NU_FINANCIAL_MOVEMENT " + " )";
+                    + " CD_MOVEMENT_TYPE, " + " NU_FINANCIAL_MOVEMENT " + " ) VALUES ( " + " ?, "
+                    + " ?, " + " ?, " + " ?, " + " ?, "
+                    + " ?, " + " ?, " + " ?, "
+                    + " ?, " + " ?, " + " ?, "
+                    + " ?, " + " ?, " + " ?, "
+                    + " ?, " + " ? " + " )";
 
     /**
      * INSERT_SETTLEMENT_ACCESS_MOVEMENT
      */
     String INSERT_SETTLEMENT_REL_MOVEMENT_ADJUSTMENT = "insert into " + "TBSETR_REL_MOVEMENT_ADJUSTMENT "
     + "(NU_MOD_CUSTOMER_MOV, " + "NU_FINANCIAL_MOVEMENT, " + "NU_FINANCIAL_ADJUSTMENT, " + "DT_SETTLEMENT, "
-                    + "DT_BATCH," + "NU_MOD_CUSTOMER_ADJ) " + "values " + "(:NU_MOD_CUSTOMER, "
-                    + ":NU_FINANCIAL_MOVEMENT, " + ":NU_FINANCIAL_ADJUSTMENT, " + ":DT_SETTLEMENT, " + ":DT_BATCH,"
-                    + ":NU_MOD_CUSTOMER) ";
+                    + "DT_BATCH," + "NU_MOD_CUSTOMER_ADJ) " + "values " + "(?, "
+                    + "?, " + "?, " + "?, " + "?,"
+                    + "?) ";
     
     /**
      * INSERT_SETTLEMENT_ACCESS_MOVEMENT
      */
     String INSERT_SETTLEMENT_REL_ADJUSTMENT_MOVEMENT = "insert into " + "TBSETR_REL_ADJUSTMENT_MOVEMENT "
                     + "(NU_MOD_CUSTOMER_MOV, " + "NU_FINANCIAL_MOVEMENT, " + "NU_FINANCIAL_ADJUSTMENT, "
-                    + "DT_SETTLEMENT, " + "DT_BATCH," + "NU_MOD_CUSTOMER_ADJ) " + "values " + "(:NU_MOD_CUSTOMER, "
-                    + ":NU_FINANCIAL_MOVEMENT, " + ":NU_FINANCIAL_ADJUSTMENT, " + ":DT_SETTLEMENT, " + ":DT_BATCH,"
-                    + ":NU_MOD_CUSTOMER) ";
+                    + "DT_SETTLEMENT, " + "DT_BATCH," + "NU_MOD_CUSTOMER_ADJ) " + "values " + "(?, "
+                    + "?, " + "?, " + "?, " + "?,"
+                    + "?) ";
     /**
      * Constante INSERT_SETTLEMENT_MOVEMENT.
      */
     String INSERT_SETTLEMENT_MOVEMENT_COMPLEMENT = "INSERT INTO " + " TBSETR_COMPLEMENT_MOVEMENT "
                     + " (DT_SETTLEMENT, " + " NU_MOD_CUSTOMER, " + " NU_FINANCIAL_MOVEMENT, " + " VL_IC, "
                     + " QT_TRANSACTION," + " VL_FLEXIBLE_TERM," + " VL_DISCOUNT_AMOUNT" + " ) VALUES ( "
-                    + " :DT_SETTLEMENT, " + " :NU_MOD_CUSTOMER, " + " :NU_FINANCIAL_MOVEMENT, " + " :VL_IC, "
-                    + " :QT_TRANSACTION," + " :VL_FLEXIBLE_TERM," + " :VL_DISCOUNT_AMOUNT" + " )";
+                    + " ?, " + " ?, " + " ?, " + " ?, "
+                    + " ?," + " ?," + " ?" + " )";
     
     /**
      * Método setCardAssociationAndPrincipalToMovement
