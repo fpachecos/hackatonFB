@@ -8,3 +8,9 @@ Nome da fila: settlementFinancialAdjustmentQueue
 Job: 1010
 Nome da Connection Factory: settlementFinancialMovementGeneratorCF
 Nome da fila: settlementFinancialMovementGeneratorQueue
+
+Datasource:
+bob.datasource
+
+Localização do arquivo a ser consumido pelo processo 1009:
+C:/temp/testData.csv
