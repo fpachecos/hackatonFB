@@ -1,4 +1,4 @@
-package br.com.cielo.settlement.movementgenerator;
+package br.com.cielo.settlement.financialmovementgenerator;
 
 import java.util.ArrayList;
 import java.util.Enumeration;

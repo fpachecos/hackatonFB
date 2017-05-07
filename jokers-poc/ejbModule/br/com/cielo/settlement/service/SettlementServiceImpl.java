@@ -55,5 +55,8 @@ public class SettlementServiceImpl implements SettlementService {
         return DateUtils.max(settlementDate, correctedDate);
     }
 
-    
+	@Override
+	public Integer getCodCurrencyByCustomerNumber(String customerNumber) {
+		return 986;//TODO Mock
+	}
 }

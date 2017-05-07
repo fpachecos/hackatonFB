@@ -25,8 +25,11 @@ import br.com.cielo.settlement.entity.MovementTypeEnum;
 import br.com.cielo.settlement.entity.Product;
 import br.com.cielo.settlement.entity.SettlementAdjustment;
 import br.com.cielo.settlement.entity.SettlementFinancialAdjustment;
+import br.com.cielo.settlement.entity.SettlementMovement;
 import br.com.cielo.settlement.entity.SettlementTypeEnum;
 import br.com.cielo.settlement.repository.SettlementFinancialAdjustmentRepository;
+import br.com.cielo.settlement.repository.SettlementMovementRepository;
+import br.com.cielo.settlement.validation.validator.SettlementValidations;
 
 /**
  * Implementeção do serviços, ajustes financeiros
@@ -66,10 +69,16 @@ public class SettlementFinancialAdjustmentServiceImpl implements SettlementFinan
     private SettlementFinancialAdjustmentRepository settlementFinancialAdjustmentRepository; 
     
     @EJB
+    private transient SettlementMovementRepository settlementMovementRepository;
+    
+    @EJB
     private AdjustPaymentTypeService adjustPaymentTypeService;
     
     @EJB
     private HashService hashService;
+    
+    @EJB
+    private transient SettlementValidations validation;
     
 	/*
 	 * (non-Javadoc)
@@ -274,5 +283,15 @@ public class SettlementFinancialAdjustmentServiceImpl implements SettlementFinan
         // VL_DISCOUNT_AMOUNT Zero
         adjustment.setDiscountAmountValue(BigDecimal.ZERO);
 
+    }
+    
+    @Override
+    public SettlementMovement generateMovement(final SettlementAdjustment adjustment) throws BusinessException {
+        Integer currencyCode = this.settlementService.getCodCurrencyByCustomerNumber(adjustment.getCustomerNumber()
+                        .toString());
+        final SettlementMovement movement = this.validation.createMovementByAdjustment(adjustment, currencyCode);
+        this.settlementMovementRepository.setCardAssociationAndPrincipalToMovement(movement);
+
+        return movement;
     }
 }

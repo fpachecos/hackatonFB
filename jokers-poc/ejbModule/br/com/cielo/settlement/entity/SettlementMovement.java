@@ -113,11 +113,11 @@ public class SettlementMovement extends HasheableEntity implements Cloneable {
      * Campo Integer traceCustomerModNumber. NU_MOD_CUSTOMER_TRACE
      */
     private Integer traceCustomerModNumber;
-//
-//    /**
-//     * Campo CardAssociation cardAssociation. CD_CARD_ASSOCIATION
-//     */
-//    private CardAssociation cardAssociation;
+
+    /**
+     * Campo CardAssociation cardAssociation. CD_CARD_ASSOCIATION
+     */
+    private CardAssociation cardAssociation;
 
     /**
      * Campo String currencyCode. CD_CURRENCY_CODE NUMBER(3, 0)
@@ -188,7 +188,7 @@ public class SettlementMovement extends HasheableEntity implements Cloneable {
     /**
      * Campo SettlementMovementRelAdjustment movementRelAdjustment
      */
-//    private SettlementMovementRelAdjustment movementRelAdjustment;
+    private SettlementMovementRelAdjustment movementRelAdjustment;
 
     /**
      * Campo String productSettlementType
@@ -926,27 +926,6 @@ public class SettlementMovement extends HasheableEntity implements Cloneable {
 //    }
 
     /**
-     * Método get do atributo movementRelAdjustment
-     *
-     * @return O valor do atributo movementRelAdjustment
-     */
-
-//    public final SettlementMovementRelAdjustment getMovementRelAdjustment() {
-//        return this.movementRelAdjustment;
-//    }
-
-    /**
-     * Método set do atributo movementRelAdjustment
-     *
-     * @param movementRelAdjustment
-     *            Valor para setar no atributo movementRelAdjustment
-     */
-
-//    public final void setMovementRelAdjustment(final SettlementMovementRelAdjustment movementRelAdjustment) {
-//        this.movementRelAdjustment = movementRelAdjustment;
-//    }
-
-    /**
      * Método get do atributo productSettlementType
      *
      * @return O valor do atributo productSettlementType
@@ -1290,5 +1269,32 @@ public class SettlementMovement extends HasheableEntity implements Cloneable {
     public void setInSettlementType(final String inSettlementType) {
         this.inSettlementType = inSettlementType;
     }
+    /**
+     * Método get do atributo cardAssociation
+     *
+     * @return O valor do atributo cardAssociation
+     */
 
+    public CardAssociation getCardAssociation() {
+        return this.cardAssociation;
+    }
+
+    /**
+     * Método set do atributo cardAssociation
+     *
+     * @param cardAssociation
+     *            Valor para setar no atributo cardAssociation
+     */
+
+    public void setCardAssociation(final CardAssociation cardAssociation) {
+        this.cardAssociation = cardAssociation;
+    }
+
+	public SettlementMovementRelAdjustment getMovementRelAdjustment() {
+		return movementRelAdjustment;
+	}
+
+	public void setMovementRelAdjustment(SettlementMovementRelAdjustment movementRelAdjustment) {
+		this.movementRelAdjustment = movementRelAdjustment;
+	}
 }

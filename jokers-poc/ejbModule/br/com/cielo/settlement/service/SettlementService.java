@@ -34,4 +34,13 @@ public interface SettlementService {
      * @return Settlement Type maior que data atual.
      */
     Date adjustSettlementDate(Date settlementDate, String settlementType);
+    
+    /**
+     * Retorna Cod da Currency Merchant.
+     *
+     * @param customerNumber
+     *            String
+     * @return Integer
+     */
+    Integer getCodCurrencyByCustomerNumber(String customerNumber);
 }

@@ -8,7 +8,11 @@
 package br.com.cielo.settlement.service;
 
 import br.com.cielo.common.exception.BusinessException;
+import br.com.cielo.settlement.entity.SettlementAdjustment;
 import br.com.cielo.settlement.entity.SettlementFinancialAdjustment;
+import br.com.cielo.settlement.entity.SettlementFinancialMovement;
+import br.com.cielo.settlement.entity.SettlementMovement;
+import br.com.cielo.settlement.entity.SettlementMovementCompany;
 
 /**
  * Serviço para ajustes financeiros, leitura de ajuste financeiro, criação de
@@ -30,5 +34,15 @@ public interface SettlementFinancialAdjustmentService {
      *             ao gerar o número do lançamento financeiro.
      */
     SettlementFinancialAdjustment generateAdjustment(final SettlementFinancialAdjustment financialAdjustment) throws BusinessException;
-
+    
+    /**
+     * Gera movimento através do ajuste
+     *
+     * @param adjustment
+     *            SettlementAdjustment
+     * @return SettlementMovement
+     * @throws BusinessException
+     *             caso ocorra algum erro na geração do hash do movimento.
+     */
+    SettlementMovement generateMovement(final SettlementAdjustment adjustment) throws BusinessException;
 }
