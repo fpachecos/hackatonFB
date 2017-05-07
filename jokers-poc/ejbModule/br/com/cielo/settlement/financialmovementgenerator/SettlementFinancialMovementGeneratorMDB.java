@@ -9,6 +9,7 @@ import javax.ejb.EJB;
 import javax.ejb.MessageDriven;
 import javax.jms.JMSException;
 import javax.jms.Message;
+import javax.jms.MessageListener;
 import javax.jms.ObjectMessage;
 import javax.jms.TextMessage;
 
@@ -25,7 +26,7 @@ import br.com.cielo.settlement.processor.FinancialMovementProcessor;
 	    @ActivationConfigProperty(propertyName = "destinationJndiName",
 	                    propertyValue = "settlementFinancialMovementGeneratorQueue")
 	})
-public class SettlementFinancialMovementGeneratorMDB {
+public class SettlementFinancialMovementGeneratorMDB  implements MessageListener {
 
     @EJB
     private transient FinancialMovementProcessor financialMovementProcessor;
