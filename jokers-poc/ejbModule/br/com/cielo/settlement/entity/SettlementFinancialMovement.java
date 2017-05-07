@@ -7,6 +7,8 @@
  */
 package br.com.cielo.settlement.entity;
 
+import java.io.Serializable;
+
 /**
  * Entidade que representa um movimento, relativo a ajustes financeiros, na
  * agenda do cliente. .
@@ -15,9 +17,11 @@ package br.com.cielo.settlement.entity;
  * @version $Id$
  *
  */
-public class SettlementFinancialMovement {
+public class SettlementFinancialMovement implements Serializable{
 
-    /**
+	private static final long serialVersionUID = 1L;
+
+	/**
      * Atributo que representa SettlementAdjustment.
      */
     private SettlementAdjustment settlementAdjustment;
@@ -48,7 +52,11 @@ public class SettlementFinancialMovement {
      */
     private Integer nuModCompany;
 
-    /**
+    public SettlementFinancialMovement(SettlementFinancialAdjustment generatedAdjustment) {
+		// TODO Auto-generated constructor stub
+	}
+
+	/**
      * Método get do atributo settlementAdjustment
      *
      * @return O valor do atributo settlementAdjustment

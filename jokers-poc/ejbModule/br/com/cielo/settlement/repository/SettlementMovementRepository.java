@@ -1,5 +1,6 @@
 package br.com.cielo.settlement.repository;
 
+import br.com.cielo.settlement.entity.SettlementFinancialMovement;
 import br.com.cielo.settlement.entity.SettlementMovement;
 
 /**
@@ -12,17 +13,46 @@ import br.com.cielo.settlement.entity.SettlementMovement;
  */
 public interface SettlementMovementRepository {
 	 
-	/**
-     * Query buscar o CARD_ASSOCIATION e CD_PRINCIPAL de produto e cliente.
+    /**
+     * Constante INSERT_SETTLEMENT_MOVEMENT.
      */
-    String SELECT_CARD_ASSOCIATION_PRINCIPAL_BY_CUSTOMER = "select "
-                    + "  contracted.tipo_liquidacao IN_SETTLEMENT_TYPE, "
-                    + "  contracted.bandeira CD_CARD_ASSOCIATION, " + "  merchant.CD_PRINCIPAL " + "from "
-                    + "  VMCTM_PAYMENT_HIERARCHY contracted " + "inner join TBCTMR_MERCHANT merchant "
-                    + "  on merchant.NU_CUSTOMER = contracted.numero_cliente "
-                    + "where contracted.numero_cliente = :NU_CUSTOMER "
-                    + "  and contracted.codigo_produto = :CD_PRODUCT " + "group by  "
-                    + "  contracted.bandeira, merchant.CD_PRINCIPAL, contracted.tipo_liquidacao";
+    String INSERT_SETTLEMENT_MOVEMENT = "INSERT INTO " + " TBSETR_SETTLEMENT_MOVEMENT " + " (DT_BATCH, "
+                    + " CD_PRODUCT, " + " NU_CUSTOMER, " + " DT_SETTLEMENT, " + " VL_MOVEMENT_NET, "
+                    + " VL_MOVEMENT_GROSS, " + " VL_DAILY_DISCOUNT_AMOUNT, " + " NU_LOAD_FILE_ID, "
+                    + " CD_FUNDING_CURRENCY, " + " NU_FINANCIAL_MOVEMENT_TRACE, " + " DT_SETTLEMENT_TRACE, "
+                    + " NU_MOD_CUSTOMER_TRACE, " + " NU_MOD_CUSTOMER, " + " CD_MOVEMENT_STATUS, "
+                    + " CD_MOVEMENT_TYPE, " + " NU_FINANCIAL_MOVEMENT " + " ) VALUES ( " + " :DT_BATCH, "
+                    + " :CD_PRODUCT, " + " :NU_CUSTOMER, " + " :DT_SETTLEMENT, " + " :VL_MOVEMENT_NET, "
+                    + " :VL_MOVEMENT_GROSS, " + " :VL_DAILY_DISCOUNT_AMOUNT, " + " :NU_LOAD_FILE_ID, "
+                    + " :CD_FUNDING_CURRENCY, " + " :NU_FINANCIAL_MOVEMENT_TRACE, " + " :DT_SETTLEMENT_TRACE, "
+                    + " :NU_MOD_CUSTOMER_TRACE, " + " :NU_MOD_CUSTOMER, " + " :CD_MOVEMENT_STATUS, "
+                    + " :CD_MOVEMENT_TYPE, " + " :NU_FINANCIAL_MOVEMENT " + " )";
+
+    /**
+     * INSERT_SETTLEMENT_ACCESS_MOVEMENT
+     */
+    String INSERT_SETTLEMENT_REL_MOVEMENT_ADJUSTMENT = "insert into " + "TBSETR_REL_MOVEMENT_ADJUSTMENT "
+    + "(NU_MOD_CUSTOMER_MOV, " + "NU_FINANCIAL_MOVEMENT, " + "NU_FINANCIAL_ADJUSTMENT, " + "DT_SETTLEMENT, "
+                    + "DT_BATCH," + "NU_MOD_CUSTOMER_ADJ) " + "values " + "(:NU_MOD_CUSTOMER, "
+                    + ":NU_FINANCIAL_MOVEMENT, " + ":NU_FINANCIAL_ADJUSTMENT, " + ":DT_SETTLEMENT, " + ":DT_BATCH,"
+                    + ":NU_MOD_CUSTOMER) ";
+    
+    /**
+     * INSERT_SETTLEMENT_ACCESS_MOVEMENT
+     */
+    String INSERT_SETTLEMENT_REL_ADJUSTMENT_MOVEMENT = "insert into " + "TBSETR_REL_ADJUSTMENT_MOVEMENT "
+                    + "(NU_MOD_CUSTOMER_MOV, " + "NU_FINANCIAL_MOVEMENT, " + "NU_FINANCIAL_ADJUSTMENT, "
+                    + "DT_SETTLEMENT, " + "DT_BATCH," + "NU_MOD_CUSTOMER_ADJ) " + "values " + "(:NU_MOD_CUSTOMER, "
+                    + ":NU_FINANCIAL_MOVEMENT, " + ":NU_FINANCIAL_ADJUSTMENT, " + ":DT_SETTLEMENT, " + ":DT_BATCH,"
+                    + ":NU_MOD_CUSTOMER) ";
+    /**
+     * Constante INSERT_SETTLEMENT_MOVEMENT.
+     */
+    String INSERT_SETTLEMENT_MOVEMENT_COMPLEMENT = "INSERT INTO " + " TBSETR_COMPLEMENT_MOVEMENT "
+                    + " (DT_SETTLEMENT, " + " NU_MOD_CUSTOMER, " + " NU_FINANCIAL_MOVEMENT, " + " VL_IC, "
+                    + " QT_TRANSACTION," + " VL_FLEXIBLE_TERM," + " VL_DISCOUNT_AMOUNT" + " ) VALUES ( "
+                    + " :DT_SETTLEMENT, " + " :NU_MOD_CUSTOMER, " + " :NU_FINANCIAL_MOVEMENT, " + " :VL_IC, "
+                    + " :QT_TRANSACTION," + " :VL_FLEXIBLE_TERM," + " :VL_DISCOUNT_AMOUNT" + " )";
     
     /**
      * MÃ©todo setCardAssociationAndPrincipalToMovement
@@ -31,4 +61,31 @@ public interface SettlementMovementRepository {
      *            SettlementMovement
      */
     void setCardAssociationAndPrincipalToMovement(final SettlementMovement movement);
+    
+    /**
+     * Método insertSettlementMovement.
+     * @param settlementFinancialMovement 
+     *
+     */
+    void insertSettlementFinancialMovement(SettlementFinancialMovement settlementFinancialMovement);
+    
+    /**
+     * Método insertMovementRelAdjustment.
+     *
+     * @param settlementFinancialMovement 
+     */
+    void insertMovementRelAdjustment(SettlementFinancialMovement settlementFinancialMovement);
+    
+    /**
+     * Método insertAdjustmentRelMovement.
+     *
+     * @param settlementFinancialMovement 
+     */
+    void insertAdjustmentRelMovement(SettlementFinancialMovement settlementFinancialMovement);
+    
+    /**
+     * Método insertMovementFinancialComplement.
+     * @param settlementFinancialMovement 
+     */
+    void insertMovementFinancialComplement(SettlementFinancialMovement settlementFinancialMovement);
 }

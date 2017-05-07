@@ -27,6 +27,7 @@ import br.com.cielo.settlement.entity.SettlementAdjustment;
 import br.com.cielo.settlement.entity.SettlementFinancialAdjustment;
 import br.com.cielo.settlement.entity.SettlementMovement;
 import br.com.cielo.settlement.entity.SettlementTypeEnum;
+import br.com.cielo.settlement.financialmovementgenerator.SettlementFinancialMovementGeneratorClient;
 import br.com.cielo.settlement.repository.SettlementFinancialAdjustmentRepository;
 import br.com.cielo.settlement.repository.SettlementMovementRepository;
 import br.com.cielo.settlement.validation.validator.SettlementValidations;
@@ -80,14 +81,6 @@ public class SettlementFinancialAdjustmentServiceImpl implements SettlementFinan
     @EJB
     private transient SettlementValidations validation;
     
-	/*
-	 * (non-Javadoc)
-	 * 
-	 * @see br.com.cielo.settlement.batch.service.
-	 * SettlementFinancialAdjustmentService
-	 * #generateAdjustment(br.com.cielo.settlement
-	 * .batch.entity.SettlementFinancialAdjustment)
-	 */
 	@Override
 	public SettlementFinancialAdjustment generateAdjustment(final SettlementFinancialAdjustment financialAdjustment) throws BusinessException {
 		final ContractedProduct priorityProduc = new ContractedProduct();
