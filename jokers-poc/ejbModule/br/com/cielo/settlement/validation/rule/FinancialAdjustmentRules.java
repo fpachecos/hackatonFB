@@ -7,6 +7,8 @@
  */
 package br.com.cielo.settlement.validation.rule;
 
+import javax.ejb.Stateless;
+
 import org.apache.commons.lang3.math.NumberUtils;
 
 import br.com.cielo.settlement.entity.MovementStatusEnum;
@@ -21,7 +23,8 @@ import br.com.cielo.settlement.entity.SettlementMovementRelAdjustment;
  * @version $Id: FinancialAdjustmentRules.java 58257 2016-02-29 16:21:23Z
  *          waldeir $
  */
-public abstract class FinancialAdjustmentRules extends BaseRules {
+@Stateless
+public class FinancialAdjustmentRules extends BaseRules {
 
     /**
      * CriaÃ§Ã£o de movimento

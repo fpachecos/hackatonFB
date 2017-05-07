@@ -29,7 +29,7 @@ public class Importacao {
 
 	private String delimitador = ";";
 	private Logger logger = Logger.getLogger(this.getClass().getName());
-	private int VALOR_MAXIMO = 1000;
+	private int VALOR_MAXIMO = 500;
 	private String PULA_LINHA = "/r/n";
 	// private String ESPACO = " ";
 	private String VIRGULA = ",";
