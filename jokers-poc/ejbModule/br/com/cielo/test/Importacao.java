@@ -2,6 +2,8 @@ package br.com.cielo.test;
 
 import java.io.BufferedReader;
 import java.io.BufferedWriter;
+import java.io.File;
+import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.FileReader;
 import java.io.IOException;
@@ -26,12 +28,8 @@ import br.com.cielo.settlement.financialadjustment.SettlementFinancialAdjustment
 public class Importacao {
 
 	private String delimitador = ";";
-	private Map<Integer, List<String>> mapa;
 	private Logger logger = Logger.getLogger(this.getClass().getName());
-	private int VALOR_MAXIMO = 1000;
-	BufferedReader br;
-	private boolean isPrimeiraLinha = true;
-	private Long dataInicial = null;
+	private int VALOR_MAXIMO = 1;
 	private String PULA_LINHA = "/r/n";
 	// private String ESPACO = " ";
 	private String VIRGULA = ",";
@@ -43,13 +41,16 @@ public class Importacao {
 	@EJB
 	private transient SettlementFinancialAdjustmentClient settlementFinancialAdjustmentClient;
 
-//	@Schedule(second = "*", minute = "*", hour = "*/1", persistent = false)
+	@Schedule(second = "*", minute = "*/1", hour = "*", persistent = false)
 	public void importaFile() {
+		BufferedReader br = null;
+		Map<Integer, List<String>> mapa;
+		boolean isPrimeiraLinha = true;
 		List<ErroVO> listaErro = new ArrayList<ErroVO>();
+		Long dataInicial = System.currentTimeMillis();
 		try {
 			String sCurrentLine;
-			dataInicial = System.currentTimeMillis();
-			br = new BufferedReader(new FileReader(arquivoIn));
+			br = new BufferedReader(new FileReader(this.arquivoIn));
 			int i = 0;
 			List<String> lista;
 
@@ -75,6 +76,8 @@ public class Importacao {
 				processaMapa(mapa, listaErro);
 				mapa.clear();
 			}
+		} catch (FileNotFoundException fnf) {
+			return;
 		} catch (Exception e) {
 			e.printStackTrace();
 			logger.log(Level.SEVERE, "Map<Integer, List<String>> obtemDadosArquivo(String caminhoArquivo)", e);
@@ -83,10 +86,14 @@ public class Importacao {
 			try {
 				if (br != null)
 					br.close();
+			       
+				File f1 = new File(this.arquivoIn);
+				File f2 = new File(this.arquivoIn+"LIDO");
+				f1.renameTo(f2);
 			} catch (IOException ex) {
 				ex.printStackTrace();
 			}
-			System.out.println("Tempo de processamento em miliseconds - " + (System.currentTimeMillis() - dataInicial));
+//			System.out.println("Tempo de processamento em miliseconds - " + (System.currentTimeMillis() - dataInicial));
 		}
 
 		// exibe leitura
@@ -108,20 +115,20 @@ public class Importacao {
 	 */
 	private void processaMapa(Map<Integer, List<String>> mapa2, List<ErroVO> listaError) {
 		int linhaCorrente = -1;
-		for (Map.Entry<Integer, List<String>> listaCampos : mapa.entrySet()) {
+		for (Map.Entry<Integer, List<String>> listaCampos : mapa2.entrySet()) {
 			linhaCorrente = listaCampos.getKey();
 			SettlementFinancialAdjustment settlementAdjustment = null;
 			try {
 				settlementAdjustment = new SettlementFinancialAdjustment(listaCampos.getValue());
 			} catch (ParseException e) {
 				e.printStackTrace();
-				listaError.add(new ErroVO(linhaCorrente, mapa.get(linhaCorrente), ERRO_PARCER));
+				listaError.add(new ErroVO(linhaCorrente, mapa2.get(linhaCorrente), ERRO_PARCER));
 			}
 
 			try {
 				settlementFinancialAdjustmentClient.send(settlementAdjustment);
 			} catch (Exception e) {
-				listaError.add(new ErroVO(linhaCorrente, mapa.get(linhaCorrente), ERRO_FILA));
+				listaError.add(new ErroVO(linhaCorrente, mapa2.get(linhaCorrente), ERRO_FILA));
 			}
 		}
 	}

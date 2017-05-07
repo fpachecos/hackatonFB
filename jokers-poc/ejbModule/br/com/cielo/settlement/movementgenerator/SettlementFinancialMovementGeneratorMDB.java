@@ -15,14 +15,14 @@ import javax.jms.TextMessage;
 /**
  * Classe responsável por receber mensagem da fila de geração de movimentação financeira
  */
-@MessageDriven(activationConfig = {
-	    @ActivationConfigProperty(propertyName = "destinationType", propertyValue = "javax.jms.Queue"),
-	    @ActivationConfigProperty(propertyName = "connectionFactoryJndiName",
-	                    propertyValue = "settlementFinancialAdjustmentCF"),
-	    @ActivationConfigProperty(propertyName = "destinationJndiName",
-	                    propertyValue = "settlementFinancialAdjustmentQueue")
-	})
-public class SettlementFinancialMovementGeneratorMDB implements MessageListener {
+//@MessageDriven(activationConfig = {
+//	    @ActivationConfigProperty(propertyName = "destinationType", propertyValue = "javax.jms.Queue"),
+//	    @ActivationConfigProperty(propertyName = "connectionFactoryJndiName",
+//	                    propertyValue = "settlementFinancialAdjustmentCF"),
+//	    @ActivationConfigProperty(propertyName = "destinationJndiName",
+//	                    propertyValue = "settlementFinancialAdjustmentQueue")
+//	})
+public class SettlementFinancialMovementGeneratorMDB {
 
 //    @Inject
 //    private transient SettlementFinancialAdjustmentEJB settlementFinancialAdjustmentEJB;
@@ -36,11 +36,11 @@ public class SettlementFinancialMovementGeneratorMDB implements MessageListener 
             if (message instanceof ObjectMessage) {
                 ObjectMessage msg = (ObjectMessage) message;
 //                domainObject = (DomainObject) msg.getObject();
-                Logger.getLogger(this.getClass().getName()).info("SettlementFinancialAdjustmentMDB: "+msg.getStringProperty("message"));
+                Logger.getLogger(this.getClass().getName()).info("SettlementFinancialMovementGeneratorMDB: "+msg.getStringProperty("message"));
             } else if (message instanceof TextMessage) {
                 TextMessage msg = (TextMessage) message;
 //                domainObject = new Gson().fromJson(msg.getText(), DomainObject.class);
-                Logger.getLogger(this.getClass().getName()).info("SettlementFinancialAdjustmentMDB: "+msg.getText());
+                Logger.getLogger(this.getClass().getName()).info("SettlementFinancialMovementGeneratorMDB: "+msg.getText());
             } else {
             	throw new JMSException("Mensagem inválida para este Queue MDB");
             }

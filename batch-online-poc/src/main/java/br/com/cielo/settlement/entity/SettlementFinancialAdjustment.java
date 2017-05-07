@@ -38,7 +38,7 @@ public class SettlementFinancialAdjustment implements Serializable {
 				this.setNuLoadFileId(listaCampos.get(i).isEmpty() ? null : Long.valueOf(listaCampos.get(i)));
 				break;
 			case CD_REQUEST_TYPE:
-				this.setRequestType(listaCampos.get(i).isEmpty() ? null : RequestTypeEnum.valueOf(listaCampos.get(i)));
+				this.setRequestType(listaCampos.get(i).isEmpty() ? null : RequestTypeEnum.parse(listaCampos.get(i)));
 				break;
 			case DH_REQUEST:
 				this.setDhRequest(listaCampos.get(i).isEmpty() ? null : formatterDiaMesAno.parse(listaCampos.get(i)));

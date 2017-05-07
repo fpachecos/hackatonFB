@@ -18,6 +18,7 @@ import org.apache.commons.lang3.math.NumberUtils;
 import br.com.cielo.common.exception.BusinessException;
 import br.com.cielo.settlement.adjustmentpaymenttype.filter.AdjustPaymentTypeFilter.AdjustPaymentTypeFilterBuilder;
 import br.com.cielo.settlement.adjustmentpaymenttype.service.AdjustPaymentTypeService;
+import br.com.cielo.settlement.batch.repository.SettlementAdjustmentRepository;
 import br.com.cielo.settlement.entity.ContractedProduct;
 import br.com.cielo.settlement.entity.EntryType;
 import br.com.cielo.settlement.entity.FinanceAdjustmentStatusEnum;
@@ -59,6 +60,9 @@ public class SettlementFinancialAdjustmentServiceImpl implements SettlementFinan
     @EJB
     private transient SettlementService settlementService;
     
+    @EJB
+    private SettlementAdjustmentRepository settlementAdjustmentRepository;
+    
     
     @EJB
     private AdjustPaymentTypeService adjustPaymentTypeService;
@@ -77,6 +81,8 @@ public class SettlementFinancialAdjustmentServiceImpl implements SettlementFinan
 	@Override
 	public SettlementFinancialAdjustment generateAdjustment(final SettlementFinancialAdjustment financialAdjustment) throws BusinessException {
 		final ContractedProduct priorityProduc = new ContractedProduct();
+		
+		financialAdjustment.setInSettlementType(SettlementTypeEnum.CREDIT);
 
 		Integer currencyCode = 986;
 
@@ -193,7 +199,7 @@ public class SettlementFinancialAdjustmentServiceImpl implements SettlementFinan
 																	.customerNumber(adjustment.getCustomerNumber())
 																	.customerModNumber(
 																			adjustment.getCustomerModNumber())
-																	.installmentSegment(NumberUtils.INTEGER_ZERO)
+																	.installmentSegment(0)
 																	.productCode(adjustment.getProductCode())
 																	.movementType(
 																			adjustment.getMovementTypeCode().getCode())
@@ -209,6 +215,8 @@ public class SettlementFinancialAdjustmentServiceImpl implements SettlementFinan
 		}
 
 		financialAdjustment.setAdjustment(adjustment);
+		
+		settlementAdjustmentRepository.createAdjustment(financialAdjustment);
 
 		return financialAdjustment;
 

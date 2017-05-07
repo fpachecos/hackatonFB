@@ -30,7 +30,6 @@ public class Importacao {
 	private Logger logger = Logger.getLogger(this.getClass().getName());
 	private int VALOR_MAXIMO = 1000;
 	BufferedReader br;
-	private boolean isPrimeiraLinha = true;
 	private Long dataInicial = null;
 	private String PULA_LINHA = "/r/n";
 	// private String ESPACO = " ";
@@ -43,8 +42,9 @@ public class Importacao {
 	@EJB
 	private transient SettlementFinancialAdjustmentClient settlementFinancialAdjustmentClient;
 
-	@Schedule(second = "*", minute = "*", hour = "*/1", persistent = false)
+	@Schedule(second = "*", minute = "*/1", hour = "*", persistent = false)
 	public void importaFile() {
+		boolean isPrimeiraLinha = true;
 		List<ErroVO> listaErro = new ArrayList<ErroVO>();
 		try {
 			String sCurrentLine;
@@ -139,8 +139,8 @@ public class Importacao {
 			writer.close();
 
 		} catch (IOException e) {
-			logger.log(Level.SEVERE, "Erro na gravação do arquivo: " + nomeArquivo, e);
-			System.out.println("erro na gravação do arquivo " + e);
+			logger.log(Level.SEVERE, "Erro na gravaÃ§Ã£o do arquivo: " + nomeArquivo, e);
+			System.out.println("erro na gravaÃ§Ã£o do arquivo " + e);
 		}
 	}
 

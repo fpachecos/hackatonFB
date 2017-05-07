@@ -11,7 +11,7 @@ public class TestPersistence {
 	@PersistenceContext(unitName="bob")
 	private transient EntityManager entityManager;
 	
-	@Schedule(second="*/20", minute="*", hour="*", persistent=false)
+//	@Schedule(second="*/20", minute="*", hour="*", persistent=false)
 	public void sendMessage(){
 		Object singleResult = entityManager.createNativeQuery("SELECT 123 FROM DUAL").getSingleResult();
 		System.out.println(singleResult);

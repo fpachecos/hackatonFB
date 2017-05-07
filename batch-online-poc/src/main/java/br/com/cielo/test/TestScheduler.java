@@ -10,7 +10,7 @@ public class TestScheduler {
 
 	private int count = 1;
 
-	@Schedule(second = "*/1", minute = "*", hour = "*", persistent = false)
+//	@Schedule(second = "*/1", minute = "*", hour = "*", persistent = false)
 	public void sendMessage() {
 		String message = "Mensage " + count++;
 		Logger.getLogger(this.getClass().getName()).info("TestScheduler: " + message);

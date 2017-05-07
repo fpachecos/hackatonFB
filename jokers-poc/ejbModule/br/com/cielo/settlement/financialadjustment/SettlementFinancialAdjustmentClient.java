@@ -73,11 +73,9 @@ public class SettlementFinancialAdjustmentClient {
 	 */
 	public void send(final SettlementFinancialAdjustment settlementFinancialAdjustment) {
 		try {
-			Logger.getLogger(this.getClass().getName())
-					.info("SettlementFinancialAdjustment: " + settlementFinancialAdjustment.toString());
+//			Logger.getLogger(this.getClass().getName())
+//					.info("SettlementFinancialAdjustment: " + settlementFinancialAdjustment.toString());
 			ObjectMessage objectMessage = this.session.createObjectMessage(settlementFinancialAdjustment);
-			objectMessage.setObjectProperty("messageObject", settlementFinancialAdjustment);
-
 			this.sender.send(objectMessage);
 		} catch (JMSException e) {
 			Logger.getLogger(this.getClass().getName()).info("ContractedProductEditPriceMDBClient.send" + e);
