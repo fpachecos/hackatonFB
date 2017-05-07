@@ -34,23 +34,34 @@ public class SettlementFinancialAdjustmentClient {
 	private QueueConnection connection = null;
 	private Queue destQueue;
 	@PostConstruct
-	private void init() throws NamingException, JMSException {
-			InitialContext ic = new InitialContext();
-			QueueConnectionFactory qcf = (QueueConnectionFactory) ic.lookup(JMS_FACTORY);
-			this.destQueue = (Queue) ic.lookup(QUEUE);
-
-			this.connection = qcf.createQueueConnection();
-			this.session = this.connection.createQueueSession(false, Session.AUTO_ACKNOWLEDGE);
-			this.sender = this.session.createSender(this.destQueue);
-			this.sender.setPriority(1);
-			ic.close();
+	private void init() {
+			try {
+				InitialContext ic = new InitialContext();
+				QueueConnectionFactory qcf;
+				qcf = (QueueConnectionFactory) ic.lookup(JMS_FACTORY);
+				this.destQueue = (Queue) ic.lookup(QUEUE);
+				
+				this.connection = qcf.createQueueConnection();
+				this.session = this.connection.createQueueSession(false, Session.CLIENT_ACKNOWLEDGE);
+				this.sender = this.session.createSender(this.destQueue);
+				this.sender.setPriority(1);
+				ic.close();
+			} catch (NamingException | JMSException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
 	}
 	
 	@PreDestroy
-	private void end() throws JMSException {
-		this.connection.close();
-		this.session.close();
-		this.sender.close();
+	private void end() {
+		try {
+			this.connection.close();
+			this.session.close();
+			this.sender.close();
+		} catch (JMSException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 	}
 
 	/**
@@ -64,7 +75,6 @@ public class SettlementFinancialAdjustmentClient {
 //					.info("SettlementFinancialAdjustment: " + settlementFinancialAdjustment.toString());
 			ObjectMessage objectMessage = this.session.createObjectMessage(settlementFinancialAdjustment);
 			this.sender.send(objectMessage);
-			this.session.commit();
 		} catch (JMSException e) {
 			Logger.getLogger(this.getClass().getName()).info("ContractedProductEditPriceMDBClient.send" + e);
 		}
