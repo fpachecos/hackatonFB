@@ -14,6 +14,8 @@ import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.List;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 import br.com.cielo.settlement.request.entity.enums.RequestTypeEnum;
 import br.com.cielo.test.CamposEnum;
 
@@ -31,6 +33,10 @@ public class SettlementFinancialAdjustment implements Serializable {
 	 */
 	private static final long serialVersionUID = 49257982696974756L;
 
+	public SettlementFinancialAdjustment(){
+		
+	}
+	
 	public SettlementFinancialAdjustment(List<String> listaCampos) throws ParseException {
 		for (int i = 0; i < listaCampos.size(); i++) {
 			switch (CamposEnum.values()[i]) {

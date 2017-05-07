@@ -1,6 +1,7 @@
 
 package br.com.cielo.settlement.financialadjustment;
 
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.logging.Logger;
 
@@ -13,13 +14,18 @@ import javax.jms.MessageListener;
 import javax.jms.ObjectMessage;
 import javax.jms.TextMessage;
 
+import com.fasterxml.jackson.core.JsonParseException;
+import com.fasterxml.jackson.core.type.TypeReference;
+import com.fasterxml.jackson.databind.JsonMappingException;
+import com.fasterxml.jackson.databind.ObjectMapper;
+
 import br.com.cielo.settlement.entity.SettlementFinancialAdjustment;
 import br.com.cielo.settlement.processor.FinancialAdjustmentProcessor;
 
 /**
  * Classe responsável por receber mensagem da fila de ajuste financeiro
  */
-@MessageDriven(activationConfig = {
+@MessageDriven(name="SettlementFinancialAdjustmentMDB", activationConfig = {
 		@ActivationConfigProperty(propertyName = "destinationType", propertyValue = "javax.jms.Queue"),
 		@ActivationConfigProperty(propertyName = "connectionFactoryJndiName", propertyValue = "settlementFinancialAdjustmentCF"),
 		@ActivationConfigProperty(propertyName = "destinationJndiName", propertyValue = "settlementFinancialAdjustmentQueue") 
@@ -33,32 +39,35 @@ public class SettlementFinancialAdjustmentMDB implements MessageListener {
 	}
 
 	public void onMessage(final Message message) {
+		
+		ArrayList<SettlementFinancialAdjustment> entityList = null;
+		
 		try {
 			// DomainObject domainObject;
 			if (message instanceof ObjectMessage) {
 				ObjectMessage msg = (ObjectMessage) message;
 
 				if (msg.getObject() instanceof ArrayList) {
-					// domainObject = (DomainObject) msg.getObject();
-//					Logger.getLogger(this.getClass().getName())
-//							.info("SettlementFinancialAdjustmentMDB Obj: " + msg.getObject().toString());
-					ArrayList<SettlementFinancialAdjustment> entity = (ArrayList<SettlementFinancialAdjustment>) msg.getObject();
-					// entity.setNuCustomer(123L);
-					// entity.setDtSettlementAdjustment(new Date());
-					// entity.setVlGross(new BigDecimal(120));
-					// entity.setCdMovementType(MovementTypeEnum.CREDIT_ADJUST);
-					// entity.setNuModCustomer(1);
-					for (SettlementFinancialAdjustment settlementFinancialAdjustment : entity) {
-						financialAdjustmentProcessor.process(settlementFinancialAdjustment);
-					}
+					entityList = (ArrayList<SettlementFinancialAdjustment>) msg.getObject();
 				}
 			} else if (message instanceof TextMessage) {
 				TextMessage msg = (TextMessage) message;
-				// domainObject = new Gson().fromJson(msg.getText(),
-				// DomainObject.class);
-				Logger.getLogger(this.getClass().getName()).info("SettlementFinancialAdjustmentMDB Text: " + msg.getText());
+				ObjectMapper mapper = new ObjectMapper();
+				try {
+					entityList = mapper.readValue(msg.getText(), new TypeReference<ArrayList<SettlementFinancialAdjustment>>(){});
+				} catch (JsonParseException e) {
+					e.printStackTrace();
+				} catch (JsonMappingException e) {
+					e.printStackTrace();
+				} catch (IOException e) {
+					e.printStackTrace();
+				}
 			} else {
 				throw new JMSException("Mensagem inválida para este Queue MDB");
+			}
+			
+			for (SettlementFinancialAdjustment settlementFinancialAdjustment : entityList) {
+				financialAdjustmentProcessor.process(settlementFinancialAdjustment);
 			}
 
 		} catch (JMSException e) {

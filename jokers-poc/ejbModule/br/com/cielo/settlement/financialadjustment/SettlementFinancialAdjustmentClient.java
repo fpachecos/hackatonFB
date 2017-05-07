@@ -1,24 +1,25 @@
 package br.com.cielo.settlement.financialadjustment;
 
 import java.util.ArrayList;
-import java.util.List;
 import java.util.logging.Logger;
 
 import javax.annotation.PostConstruct;
 import javax.annotation.PreDestroy;
 import javax.ejb.LocalBean;
 import javax.ejb.Stateless;
-import javax.jms.DeliveryMode;
 import javax.jms.JMSException;
-import javax.jms.ObjectMessage;
 import javax.jms.Queue;
 import javax.jms.QueueConnection;
 import javax.jms.QueueConnectionFactory;
 import javax.jms.QueueSender;
 import javax.jms.QueueSession;
 import javax.jms.Session;
+import javax.jms.TextMessage;
+import javax.json.stream.JsonGenerator;
 import javax.naming.InitialContext;
 import javax.naming.NamingException;
+
+import com.fasterxml.jackson.databind.ObjectMapper;
 
 import br.com.cielo.settlement.entity.SettlementFinancialAdjustment;
 
@@ -75,9 +76,11 @@ public class SettlementFinancialAdjustmentClient {
 		try {
 //			Logger.getLogger(this.getClass().getName())
 //					.info("SettlementFinancialAdjustment: " + settlementFinancialAdjustment.toString());
-			ObjectMessage objectMessage = this.session.createObjectMessage(settlementFinancialAdjustment);
-			this.sender.send(objectMessage);
-		} catch (JMSException e) {
+			ObjectMapper mapper = new ObjectMapper();
+			TextMessage message = this.session.createTextMessage(mapper.writeValueAsString(settlementFinancialAdjustment));
+			this.sender.send(message);
+		} catch (Exception e) {
+			e.printStackTrace();
 			Logger.getLogger(this.getClass().getName()).info("ContractedProductEditPriceMDBClient.send" + e);
 		}
 	}
