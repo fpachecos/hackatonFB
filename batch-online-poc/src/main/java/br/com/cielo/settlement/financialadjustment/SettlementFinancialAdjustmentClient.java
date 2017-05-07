@@ -21,7 +21,7 @@ import javax.jms.Session;
 import javax.naming.InitialContext;
 import javax.naming.NamingException;
 
-import br.com.cielo.test.TesteDataVO;
+import br.com.cielo.settlement.entity.SettlementFinancialAdjustment;
 
 /**
  * Classe responsável por enviar mensagem para fila de ajuste financeiro
@@ -71,12 +71,12 @@ public class SettlementFinancialAdjustmentClient {
 	 *
 	 * @param productsToUpdate
 	 */
-	public void send(final TesteDataVO testeDataVO) {
+	public void send(final SettlementFinancialAdjustment settlementFinancialAdjustment) {
 		try {
 			Logger.getLogger(this.getClass().getName())
-					.info("SettlementFinancialAdjustmentClient: " + testeDataVO.toString());
-			ObjectMessage objectMessage = this.session.createObjectMessage(testeDataVO);
-			objectMessage.setObjectProperty("messageObject", testeDataVO);
+					.info("SettlementFinancialAdjustment: " + settlementFinancialAdjustment.toString());
+			ObjectMessage objectMessage = this.session.createObjectMessage(settlementFinancialAdjustment);
+			objectMessage.setObjectProperty("messageObject", settlementFinancialAdjustment);
 
 			this.sender.send(objectMessage);
 		} catch (JMSException e) {

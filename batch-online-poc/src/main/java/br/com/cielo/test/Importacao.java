@@ -19,6 +19,7 @@ import javax.ejb.EJB;
 import javax.ejb.Schedule;
 import javax.ejb.Stateless;
 
+import br.com.cielo.settlement.entity.SettlementFinancialAdjustment;
 import br.com.cielo.settlement.financialadjustment.SettlementFinancialAdjustmentClient;
 
 @Stateless
@@ -31,18 +32,18 @@ public class Importacao {
 	BufferedReader br;
 	private boolean isPrimeiraLinha = true;
 	private Long dataInicial = null;
-	private String PULA_LINHA = "\r\n";
+	private String PULA_LINHA = "/r/n";
 	// private String ESPACO = " ";
 	private String VIRGULA = ",";
 
 	private String ERRO_PARCER = "ERRO_PARCER";
 	private String ERRO_FILA = "ERRO_FILA";
-	private String arquivoIn = "e:/hackatonFB-master/testData.csv";
+	private String arquivoIn = "C:/Users/fpach/git/hackatonFB/testData/testData.csv";
 
 	@EJB
 	private transient SettlementFinancialAdjustmentClient settlementFinancialAdjustmentClient;
 
-	@Schedule(second = "*/1", minute = "*", hour = "*", persistent = false)
+	@Schedule(second = "*", minute = "*", hour = "*/1", persistent = false)
 	public void importaFile() {
 		List<ErroVO> listaErro = new ArrayList<ErroVO>();
 		try {
@@ -71,7 +72,6 @@ public class Importacao {
 				}
 			}
 			if (mapa.size() > 0) {
-				// TODO chama fila
 				processaMapa(mapa, listaErro);
 				mapa.clear();
 			}
@@ -110,16 +110,16 @@ public class Importacao {
 		int linhaCorrente = -1;
 		for (Map.Entry<Integer, List<String>> listaCampos : mapa.entrySet()) {
 			linhaCorrente = listaCampos.getKey();
-			TesteDataVO testeDataVO = null;
+			SettlementFinancialAdjustment settlementAdjustment = null;
 			try {
-				testeDataVO = new TesteDataVO(listaCampos.getValue());
+				settlementAdjustment = new SettlementFinancialAdjustment(listaCampos.getValue());
 			} catch (ParseException e) {
 				e.printStackTrace();
 				listaError.add(new ErroVO(linhaCorrente, mapa.get(linhaCorrente), ERRO_PARCER));
 			}
 
 			try {
-				settlementFinancialAdjustmentClient.send(testeDataVO);
+				settlementFinancialAdjustmentClient.send(settlementAdjustment);
 			} catch (Exception e) {
 				listaError.add(new ErroVO(linhaCorrente, mapa.get(linhaCorrente), ERRO_FILA));
 			}
@@ -127,7 +127,7 @@ public class Importacao {
 	}
 
 	private void writterError(List<ErroVO> lista) {
-		String nomeArquivo = "e:/hackatonFB-master/testDataERROR.csv";
+		String nomeArquivo = "C:/Users/fpach/git/hackatonFB/testData/testDataERROR.csv";
 		try {
 			Writer writer = new BufferedWriter(
 					new OutputStreamWriter(new FileOutputStream(nomeArquivo, true), "UTF-8"));
