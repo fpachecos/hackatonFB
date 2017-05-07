@@ -21,6 +21,8 @@ import javax.jms.Session;
 import javax.naming.InitialContext;
 import javax.naming.NamingException;
 
+import br.com.cielo.settlement.entity.SettlementFinancialMovement;
+
 /**
  * Classe responsável por enviar mensagem para fila de geração de movimentação financeira
  */
@@ -70,11 +72,10 @@ public class SettlementFinancialMovementGeneratorClient {
      *
      * @param productsToUpdate
      */
-    public void send(final String message) {
+    public void send(final SettlementFinancialMovement financialMovement) {
         try {
-    		Logger.getLogger(this.getClass().getName()).info("SettlementFinancialMovementGeneratorClient: "+message);
-            ObjectMessage objectMessage = this.session.createObjectMessage(message);
-            objectMessage.setStringProperty("message", message);
+//    		Logger.getLogger(this.getClass().getName()).info("SettlementFinancialMovementGeneratorClient: "+financialMovement);
+            ObjectMessage objectMessage = this.session.createObjectMessage(financialMovement);
             this.sender.send(objectMessage);
         } catch (JMSException e) {
             Logger.getLogger(this.getClass().getName()).info("SettlementFinancialMovementGeneratorClient.send" + e);

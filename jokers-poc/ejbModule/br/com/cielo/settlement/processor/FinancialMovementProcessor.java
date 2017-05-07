@@ -12,6 +12,7 @@ import javax.ejb.Stateless;
 
 import br.com.cielo.common.exception.BusinessException;
 import br.com.cielo.settlement.entity.SettlementFinancialMovement;
+import br.com.cielo.settlement.repository.SettlementMovementRepository;
 import br.com.cielo.settlement.service.SettlementFinancialAdjustmentService;
 
 /**
@@ -30,10 +31,18 @@ public class FinancialMovementProcessor {
 	@EJB
 	private transient SettlementFinancialAdjustmentService financialAdjustmentService;
 
+    @EJB
+    private transient SettlementMovementRepository settlementMovementRepository;
+
 	public void process(final SettlementFinancialMovement entity) {
 		try {
 			entity.setSettlementMovement(
 					this.financialAdjustmentService.generateMovement(entity.getSettlementAdjustment()));
+			
+			this.settlementMovementRepository.insertSettlementFinancialMovement(entity);
+	        this.settlementMovementRepository.insertMovementRelAdjustment(entity);
+	        this.settlementMovementRepository.insertAdjustmentRelMovement(entity);
+	        this.settlementMovementRepository.insertMovementFinancialComplement(entity);
 		} catch (BusinessException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
