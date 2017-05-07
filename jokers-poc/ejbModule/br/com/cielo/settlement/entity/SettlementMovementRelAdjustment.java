@@ -1,5 +1,6 @@
 package br.com.cielo.settlement.entity;
 
+import java.io.Serializable;
 import java.util.Date;
 
 /**
@@ -8,7 +9,9 @@ import java.util.Date;
  * @author <a href="mailto:eyvd6c@prestadorcbmp.com.br>Jonas Almeida Cezar </a>
  * @version $Id: SettlementMovementRelAdjustment.java 46605 2015-08-05 13:50:22Z eyvd6c $
  */
-public class SettlementMovementRelAdjustment {
+public class SettlementMovementRelAdjustment implements Serializable{
+
+	private static final long serialVersionUID = 1L;
 
     /**
      * campo Date datchDate DT_BATCH

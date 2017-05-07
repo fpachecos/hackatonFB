@@ -1,5 +1,6 @@
 package br.com.cielo.settlement.entity;
 
+import java.io.Serializable;
 import java.math.BigDecimal;
 import java.util.Date;
 
@@ -11,8 +12,10 @@ import br.com.cielo.settlement.request.entity.enums.RequestTypeEnum;
  * @author <a href="mailto:eyvd6c@prestadorcbmp.com.br">Jonas Almeida Cezar</a>
  * @version $Id: SettlementAdjustment.java 82745 2017-02-07 14:02:14Z t0112jff $
  */
-public class SettlementAdjustment {
+public class SettlementAdjustment implements Serializable{
 
+	private static final long serialVersionUID = 1L;
+	
     /**
      * Campo Long batchNumber. NU_BATCH NUMBER(20)
      */

@@ -52,8 +52,36 @@ public class SettlementFinancialMovement implements Serializable{
      */
     private Integer nuModCompany;
 
-    public SettlementFinancialMovement(SettlementFinancialAdjustment generatedAdjustment) {
-		// TODO Auto-generated constructor stub
+    public SettlementFinancialMovement(SettlementFinancialAdjustment financialAdjustment) {
+    	
+    	settlementAdjustment=financialAdjustment.getAdjustment();
+    	
+    	settlementMovement=new SettlementMovement();
+    	settlementMovement.setBatchDate(financialAdjustment.getDhRequest());
+    	settlementMovement.setProductCode(financialAdjustment.getCdProduct());
+    	settlementMovement.setCustomerNumber(financialAdjustment.getNuCustomer());
+    	settlementMovement.setSettlementDate(financialAdjustment.getDtSettlementAdjustment());
+    	
+    	settlementMovement.setNetMovementValue(financialAdjustment.getAdjustment().getNetAmountValue());
+    	settlementMovement.setMovementTypeCode(financialAdjustment.getCdMovementType().getCode());
+    	settlementMovement.setGrossMovementValue(financialAdjustment.getVlGross());
+    	settlementMovement.setDailyDiscountValueAmt(financialAdjustment.getAdjustment().getDiscountAmountValue());
+    	settlementMovement.setLoadFileIdNumber(financialAdjustment.getNuLoadFileId());
+    	settlementMovement.setFundingCurrencyCode(financialAdjustment.getCdUserId());
+    	settlementMovement.setSettlementBaseDate(financialAdjustment.getDtSettlementAdjustment());
+    	settlementMovement.setCustomerModNumber(financialAdjustment.getNuModCustomer());
+
+    	settlementMovement.setTraceSettlementDate(financialAdjustment.getDtSettlementAdjustment());
+    	settlementMovement.setMovementStatusCode(financialAdjustment.getCdAdjustentReason());
+    	settlementMovement.setTraceNumberFinancialMovement(financialAdjustment.getCdUserId());
+    	settlementMovement.setNumberFinancialMovement(financialAdjustment.getCdUserId());
+    	settlementMovement.setTraceCustomerModNumber(financialAdjustment.getCdAdjustentReason());
+
+    	settlementMovementCompany = new SettlementMovementCompany();
+    	settlementMovementCompany.setCdFundingCurrency(settlementMovement.getFundingCurrencyCode());
+    	
+    	nuCompany=financialAdjustment.getNuCustomer();
+    	nuModCompany=financialAdjustment.getNuModCustomer();
 	}
 
 	/**

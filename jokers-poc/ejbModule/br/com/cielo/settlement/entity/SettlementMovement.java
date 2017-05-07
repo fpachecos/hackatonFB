@@ -1,5 +1,6 @@
 package br.com.cielo.settlement.entity;
 
+import java.io.Serializable;
 import java.math.BigDecimal;
 import java.util.Date;
 
@@ -11,7 +12,9 @@ import br.com.cielo.common.entity.HasheableEntity;
  * @author <a href="mailto:eyvd6c@prestadorcbmp.com.br">Jonas Almeida Cezar</a>
  * @version $Id: Sale.java 11/07/2014 - 09:27:02
  */
-public class SettlementMovement extends HasheableEntity implements Cloneable {
+public class SettlementMovement extends HasheableEntity implements Cloneable, Serializable{
+
+	private static final long serialVersionUID = 1L;
 
     /**
      * Campo int STRING_SIZE

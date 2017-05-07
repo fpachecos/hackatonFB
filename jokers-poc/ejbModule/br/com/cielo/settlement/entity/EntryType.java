@@ -7,14 +7,18 @@
  */
 package br.com.cielo.settlement.entity;
 
+import java.io.Serializable;
+
 /**
  * Classe que representa os tipos de lançamentos da transação.
  * 
  * @author <a href="mailto:rsousa@cielo.com.br>NOME_EXTENSO</a>
  * @version $Id: EntryType.java 56784 2016-02-04 21:41:26Z eyvdbm $
  */
-public class EntryType {
+public class EntryType implements Serializable{
 
+	private static final long serialVersionUID = 1L;
+	
     /**
      * Campo EntryType REFUND_ADJUSTEMENT
      */

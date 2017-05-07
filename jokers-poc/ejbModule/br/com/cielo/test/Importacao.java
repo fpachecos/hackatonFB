@@ -130,12 +130,13 @@ public class Importacao {
 		try {
 			settlementFinancialAdjustmentClient.send(list);
 		} catch (Exception e) {
+			e.printStackTrace();
 			listaError.add(new ErroVO(linhaCorrente, mapa2.get(linhaCorrente), ERRO_FILA));
 		}
 	}
 
 	private void writterError(List<ErroVO> lista) {
-		String nomeArquivo = "C:/Users/fpach/git/hackatonFB/testData/testDataERROR.csv";
+		String nomeArquivo = "C:/tmp/testDataERROR.csv";
 		try {
 			Writer writer = new BufferedWriter(
 					new OutputStreamWriter(new FileOutputStream(nomeArquivo, true), "UTF-8"));

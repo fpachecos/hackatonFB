@@ -1,5 +1,6 @@
 package br.com.cielo.settlement.entity;
 
+import java.io.Serializable;
 import java.math.BigDecimal;
 import java.util.Date;
 
@@ -11,8 +12,9 @@ import br.com.cielo.common.entity.HasheableEntity;
  * @author <a href="mailto:eyve4g@prestadorcbmp.com.br">Jean Felipe Silva</a>
  * @version $Id: Sale.java 04/11/2016
  */
-public class SettlementMovementCompany extends HasheableEntity implements Cloneable {
+public class SettlementMovementCompany extends HasheableEntity implements Cloneable, Serializable{
 
+	private static final long serialVersionUID = 1L;
     /**
      * Campo String nuFinancialMovementCompany. NU_FINANCIAL_MOVEMENT_COMPANY
      * VARCHAR(40) Numero que identifica o movimento financeiro.
