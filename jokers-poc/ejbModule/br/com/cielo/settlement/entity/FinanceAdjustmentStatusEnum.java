@@ -7,83 +7,83 @@ package br.com.cielo.settlement.entity;
  * @version $Id: FinanceAdjustmentStatusEnum.java 46605 2015-08-05 13:50:22Z eyvd6c $
  */
 public enum FinanceAdjustmentStatusEnum {
-    /**
-     * Tipo Solicitada
-     */
-    REQUESTED(1, "Solicitada"),
-    /**
-     * Tipo Aprovada
-     */
-    APPROVED(2, "Aprovada"),
-    /**
-     * Tipo Rejeitada
-     */
-    REJECTED(3, "Rejeitada"),
-    /**
-     * Tipo Efetivada
-     */
-    EFFECTED(4, "Efetivada"),
-    /**
-     * Tipo Reversão Solicitada
-     */
-    REQUESTED_REVERSAL(5, "Anulada"),
-    /**
-     * tipo unknown.
-     */
-    UNKNOWN(0, "UNKNOWN");
+  /**
+   * Tipo Solicitada
+   */
+  REQUESTED(1, "Solicitada"),
+  /**
+   * Tipo Aprovada
+   */
+  APPROVED(2, "Aprovada"),
+  /**
+   * Tipo Rejeitada
+   */
+  REJECTED(3, "Rejeitada"),
+  /**
+   * Tipo Efetivada
+   */
+  EFFECTED(4, "Efetivada"),
+  /**
+   * Tipo Reversï¿½o Solicitada
+   */
+  REQUESTED_REVERSAL(5, "Anulada"),
+  /**
+   * tipo unknown.
+   */
+  UNKNOWN(0, "UNKNOWN");
 
-    /**
-     * Campo Integer code.
-     */
-    private Integer code;
-    /**
-     * Campo String description.
-     */
-    private String description;
+  /**
+   * Campo Integer code.
+   */
+  private Integer code;
+  /**
+   * Campo String description.
+   */
+  private String description;
 
-    /**
-     * Construtor.
-     * 
-     * @param code codigo
-     * @param description descricao
-     */
-    private FinanceAdjustmentStatusEnum(final Integer code, final String description) {
-        this.code = code;
-        this.description = description;
+  /**
+   * Construtor.
+   * 
+   * @param code codigo
+   * @param description descricao
+   */
+  private FinanceAdjustmentStatusEnum(final Integer code, final String description) {
+    this.code = code;
+    this.description = description;
+  }
+
+  /**
+   * Retorna o Enum correspondente ao cï¿½digo passado
+   * 
+   * @return RefundStatusEnum
+   * @param code codigo
+   */
+  public static FinanceAdjustmentStatusEnum parse(final Integer code) {
+
+    for (FinanceAdjustmentStatusEnum refundStatus : FinanceAdjustmentStatusEnum.values()) {
+      if (refundStatus.getCode().equals(code)) {
+        return refundStatus;
+      }
     }
+    throw new IllegalArgumentException("Unknown Refund Status [" + code + "]");
+  }
 
-    /**
-     * Retorna o Enum correspondente ao código passado
-     * 
-     * @return RefundStatusEnum
-     * @param code codigo
-     */
-    public static FinanceAdjustmentStatusEnum parse(final Integer code) {
+  /**
+   * Mï¿½todo get do atributo code
+   * 
+   * @return O valor do atributo code
+   */
+  public Integer getCode() {
+    return this.code;
+  }
 
-        for (FinanceAdjustmentStatusEnum refundStatus : FinanceAdjustmentStatusEnum.values()) {
-            if (refundStatus.getCode().equals(code)) {
-                return refundStatus;
-            }
-        }
-        throw new IllegalArgumentException("Unknown Refund Status [" + code + "]");
-    }
-
-    /**
-     * Método get do atributo code
-     * 
-     * @return O valor do atributo code
-     */
-    public Integer getCode() {
-        return this.code;
-    }
-
-    /**
-     * Método get do atributo description
-     * 
-     * @return O valor do atributo description
-     */
-    public String getDescription() {
-        return this.description;
-    }
+  /**
+   * Mï¿½todo get do atributo description
+   * 
+   * @return O valor do atributo description
+   */
+  public String getDescription() {
+    return this.description;
+  }
 
 }

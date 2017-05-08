@@ -5,19 +5,18 @@ import br.com.cielo.settlement.entity.Product;
 
 
 /**
- * Classes de serviços para determinar o produto para ajustes que não contém o
- * tipo de pagamento.
+ * Classes de serviï¿½os para determinar o produto para ajustes que nï¿½o contï¿½m o tipo de pagamento.
  *
  * @author <a href="mailto:eyvdbm@prestadorcbmp.com.br>Evandro da cunha luz</a>
  * @version $Id$
  */
 public interface AdjustPaymentTypeService {
 
-    /**
-     * Determina o tipo de pagamento para o ajustes de tipo genéricos - Débito e Crédito.
-     *
-     * @param filter adjustPaymentTypeFilter
-     * @return Product product
-     */
-    public Product getAdjustmentProduct(AdjustPaymentTypeFilter filter);
+  /**
+   * Determina o tipo de pagamento para o ajustes de tipo genï¿½ricos - Dï¿½bito e Crï¿½dito.
+   *
+   * @param filter adjustPaymentTypeFilter
+   * @return Product product
+   */
+  public Product getAdjustmentProduct(AdjustPaymentTypeFilter filter);
 }

@@ -29,9 +29,6 @@ public class FinancialAdjustmentProcessor {
   @EJB
   private transient SettlementFinancialAdjustmentService financialAdjustmentService;
 
-  @EJB
-  private transient SettlementFinancialMovementGeneratorClient settFinancialMovementGeneratorClient;
-
   /**
    * Processa regra de negócio do "JOB 1009".
    * @param entity - Ajuste financeiro
@@ -41,10 +38,6 @@ public class FinancialAdjustmentProcessor {
     try {
       SettlementFinancialAdjustment generatedAdjustment =
           this.financialAdjustmentService.generateAdjustment(entity);
-
-      // Chamando próximo processamento - 1010
-      this.settFinancialMovementGeneratorClient
-          .send(new SettlementFinancialMovement(entity.getAdjustment()));
       return generatedAdjustment;
     } catch (BusinessException e) {
       // TODO Auto-generated catch block

@@ -1,7 +1,5 @@
 /**
- * Cielo S.A.
- * Projeto BoB
- * Dir Desenvolvimento de Sistemas Bob-O50013375
+ * Cielo S.A. Projeto BoB Dir Desenvolvimento de Sistemas Bob-O50013375
  *
  * Copyright 2014
  */
@@ -14,142 +12,137 @@ import br.com.cielo.common.entity.CodedEnum;
  * <p>
  * Enum que representa os tipos de Tipo de Status de Movimentos.
  *
- * @author <a href="mailto:eyvd67@prestadorcbmp.com.br">Daniel Perestrelo
- *         Vicente</a>
+ * @author <a href="mailto:eyvd67@prestadorcbmp.com.br">Daniel Perestrelo Vicente</a>
  * @version $Id: MovementStatusEnum.java 82447 2017-01-24 13:12:23Z t0112jff $
  */
 public enum MovementStatusEnum implements CodedEnum<Integer> {
 
-    /**
-     * Enum do tipo "Pendente"
-     */
-    PENDING(0, "Pendente"),
-    /**
-     * Enum do tipo "Liquidado Crédito"
-     */
-    SETTLEMENT_CREDIT(1, "Liquidado Crédito"),
-    /**
-     * Enum do tipo "Liquidado Débito"
-     */
-    SETTLEMENT_DEBIT(2, "Liquidado Débito"),
-    /**
-     * Enum do tipo "Debit Balance"
-     */
-    DEBIT_BALANCE(3, "Debit Balance"),
-    /**
-     * Enum do tipo "Debito Compensado"
-     */
-    DEBIT_CLEARING(4, "Debito Compensado"),
-    /**
-     * Enum do tipo "Debito Pendente"
-     */
-    PENDING_EC_DEBIT(5, "Debito Pendente"),
-    /**
-     * Enum do tipo "Suspenso"
-     */
-    BLOCKED(6, "Suspenso"),
-    /**
-     * Enum do tipo "Suspenso"
-     */
-    REGULARIZED(7, "Regularizado"),
-    /**
-     * Determina quando um movimento está em retenção.
-     */
-    RETENTION(8, "Retenção"),
-    /**
-     * Determina que um movimento está pendente para Antecipação.
-     */
-    PENDING_ANTICIPATION(9, "Pendente por Antecipação"),
-    /**
-     * Determina que um movimento foi liquidado por Antecipação.
-     */
-    SETTLEMENT_ANTICIPATION(10, "Liquidado por Antecipação"),
+  /**
+   * Enum do tipo "Pendente"
+   */
+  PENDING(0, "Pendente"),
+  /**
+   * Enum do tipo "Liquidado Crï¿½dito"
+   */
+  SETTLEMENT_CREDIT(1, "Liquidado Crï¿½dito"),
+  /**
+   * Enum do tipo "Liquidado Dï¿½bito"
+   */
+  SETTLEMENT_DEBIT(2, "Liquidado Dï¿½bito"),
+  /**
+   * Enum do tipo "Debit Balance"
+   */
+  DEBIT_BALANCE(3, "Debit Balance"),
+  /**
+   * Enum do tipo "Debito Compensado"
+   */
+  DEBIT_CLEARING(4, "Debito Compensado"),
+  /**
+   * Enum do tipo "Debito Pendente"
+   */
+  PENDING_EC_DEBIT(5, "Debito Pendente"),
+  /**
+   * Enum do tipo "Suspenso"
+   */
+  BLOCKED(6, "Suspenso"),
+  /**
+   * Enum do tipo "Suspenso"
+   */
+  REGULARIZED(7, "Regularizado"),
+  /**
+   * Determina quando um movimento estï¿½ em retenï¿½ï¿½o.
+   */
+  RETENTION(8, "Retenï¿½ï¿½o"),
+  /**
+   * Determina que um movimento estï¿½ pendente para Antecipaï¿½ï¿½o.
+   */
+  PENDING_ANTICIPATION(9, "Pendente por Antecipaï¿½ï¿½o"),
+  /**
+   * Determina que um movimento foi liquidado por Antecipaï¿½ï¿½o.
+   */
+  SETTLEMENT_ANTICIPATION(10, "Liquidado por Antecipaï¿½ï¿½o"),
 
-    /**
-     * Determina que um movimento esta Em Compensação
-     */
-    IN_COMPENSATION(11, "Em Compensação"),
+  /**
+   * Determina que um movimento esta Em Compensaï¿½ï¿½o
+   */
+  IN_COMPENSATION(11, "Em Compensaï¿½ï¿½o"),
 
-    /**
-     * Determina que um movimento foi Compensado
-     */
-    COMPENSATION(12, "Compensado"),
+  /**
+   * Determina que um movimento foi Compensado
+   */
+  COMPENSATION(12, "Compensado"),
 
-    /**
-     * Determina que um movimento está pendente de Compensado
-     */
-    PENDING_COMPENSATION(13, "Pendente Compensação"),
+  /**
+   * Determina que um movimento estï¿½ pendente de Compensado
+   */
+  PENDING_COMPENSATION(13, "Pendente Compensaï¿½ï¿½o"),
 
-    /**
-     * Liquidação forçada.
-     */
-    FORCED_SETTLEMENT(14, "Liquidação forçada"),
+  /**
+   * Liquidaï¿½ï¿½o forï¿½ada.
+   */
+  FORCED_SETTLEMENT(14, "Liquidaï¿½ï¿½o forï¿½ada"),
 
-    /**
-     * Contrapartida de liquidação forçada.
-     */
-    FORCED_SETTLEMENT_COUNTERPART(15, "Contrapartida de liquidação forçada");
+  /**
+   * Contrapartida de liquidaï¿½ï¿½o forï¿½ada.
+   */
+  FORCED_SETTLEMENT_COUNTERPART(15, "Contrapartida de liquidaï¿½ï¿½o forï¿½ada");
 
-    /**
-     * Campo Integer code.
-     */
-    private Integer code;
+  /**
+   * Campo Integer code.
+   */
+  private Integer code;
 
-    /**
-     * Campo String description.
-     */
-    private String description;
+  /**
+   * Campo String description.
+   */
+  private String description;
 
-    /**
-     * Construtor sobrecarregado.
-     * <p>
-     * Obtém um MovementStatusEnum a partir do código informado.
-     *
-     * @param code
-     *            código de status de movimento.
-     * @param description
-     *            String
-     */
-    private MovementStatusEnum(final Integer code, final String description) {
-        this.code = code;
-        this.description = description;
+  /**
+   * Construtor sobrecarregado.
+   * <p>
+   * Obtï¿½m um MovementStatusEnum a partir do cï¿½digo informado.
+   *
+   * @param code cï¿½digo de status de movimento.
+   * @param description String
+   */
+  private MovementStatusEnum(final Integer code, final String description) {
+    this.code = code;
+    this.description = description;
+  }
+
+  /*
+   * (non-Javadoc)
+   *
+   * @see br.com.cielo.common.batch.entity.CodedEnum#getCode()
+   */
+  @Override
+  public Integer getCode() {
+    return this.code;
+  }
+
+  /**
+   * Mï¿½todo get do atributo description
+   *
+   * @return O valor do atributo description
+   */
+  public String getDescription() {
+    return this.description;
+  }
+
+  /**
+   * Mï¿½todo parse que cria um objeto MovementStatusEnum a partir do cï¿½digo informado para pesquisa.
+   *
+   * @param code cï¿½digo de status de movimento para pesquisa.
+   * @return MovementStatusEnum objeto encontrado para pesquisa.
+   */
+  public static MovementStatusEnum parse(final Integer code) {
+    MovementStatusEnum result = PENDING;
+    for (final MovementStatusEnum movementStatus : values()) {
+      if (movementStatus.code.equals(code)) {
+        result = movementStatus;
+        break;
+      }
     }
-
-    /*
-     * (non-Javadoc)
-     *
-     * @see br.com.cielo.common.batch.entity.CodedEnum#getCode()
-     */
-    @Override
-    public Integer getCode() {
-        return this.code;
-    }
-
-    /**
-     * Método get do atributo description
-     *
-     * @return O valor do atributo description
-     */
-    public String getDescription() {
-        return this.description;
-    }
-
-    /**
-     * Método parse que cria um objeto MovementStatusEnum a partir do código
-     * informado para pesquisa.
-     *
-     * @param code
-     *            código de status de movimento para pesquisa.
-     * @return MovementStatusEnum objeto encontrado para pesquisa.
-     */
-    public static MovementStatusEnum parse(final Integer code) {
-        MovementStatusEnum result = PENDING;
-        for (final MovementStatusEnum movementStatus : values()) {
-            if (movementStatus.code.equals(code)) {
-                result = movementStatus;
-                break;
-            }
-        }
-        return result;
-    }
+    return result;
+  }
 }

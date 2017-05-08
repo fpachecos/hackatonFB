@@ -23,64 +23,67 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import br.com.cielo.settlement.entity.SettlementFinancialAdjustment;
 
 /**
- * Classe responsável por enviar mensagem para fila de ajuste financeiro
+ * Classe responsï¿½vel por enviar mensagem para fila de ajuste financeiro
  */
 @Stateless
 @LocalBean
 public class SettlementFinancialAdjustmentClient {
-	public final static String JNDI_FACTORY = "weblogic.jndi.WLInitialContextFactory";
-	public final static String JMS_FACTORY = "settlementFinancialAdjustmentCF";
-	public final static String QUEUE = "settlementFinancialAdjustmentQueue";
+  public final static String JNDI_FACTORY = "weblogic.jndi.WLInitialContextFactory";
+  public final static String JMS_FACTORY = "settlementFinancialAdjustmentCF";
+  public final static String QUEUE = "settlementFinancialAdjustmentQueue";
 
-	private QueueSession session = null;
-	private QueueSender sender = null;
-	private QueueConnection connection = null;
-	private Queue destQueue;
-	@PostConstruct
-	private void init() {
-			try {
-				InitialContext ic = new InitialContext();
-				QueueConnectionFactory qcf;
-				qcf = (QueueConnectionFactory) ic.lookup(JMS_FACTORY);
-				this.destQueue = (Queue) ic.lookup(QUEUE);
-				
-				this.connection = qcf.createQueueConnection();
-				this.session = this.connection.createQueueSession(false, Session.AUTO_ACKNOWLEDGE);
-				this.sender = this.session.createSender(this.destQueue);
-				ic.close();
-			} catch (NamingException | JMSException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
-			}
-	}
-	
-	@PreDestroy
-	private void end() {
-		try {
-			this.connection.close();
-			this.session.close();
-			this.sender.close();
-		} catch (JMSException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
-	}
+  private QueueSession session = null;
+  private QueueSender sender = null;
+  private QueueConnection connection = null;
+  private Queue destQueue;
 
-	/**
-	 * Envia os produtos a serem atualizados para a fila.
-	 *
-	 * @param productsToUpdate
-	 */
-	public void send(final ArrayList<SettlementFinancialAdjustment> settlementFinancialAdjustment) {
-		try {
-//			Logger.getLogger(this.getClass().getName())
-//					.info("SettlementFinancialAdjustment: " + settlementFinancialAdjustment.toString());
-			ObjectMapper mapper = new ObjectMapper();
-			TextMessage message = this.session.createTextMessage(mapper.writeValueAsString(settlementFinancialAdjustment));
-			this.sender.send(message);
-		} catch (Exception e) {
-			e.printStackTrace();
-			Logger.getLogger(this.getClass().getName()).info("ContractedProductEditPriceMDBClient.send" + e);
-		}
-	}
+  @PostConstruct
+  private void init() {
+    try {
+      InitialContext ic = new InitialContext();
+      QueueConnectionFactory qcf;
+      qcf = (QueueConnectionFactory) ic.lookup(JMS_FACTORY);
+      this.destQueue = (Queue) ic.lookup(QUEUE);
+
+      this.connection = qcf.createQueueConnection();
+      this.session = this.connection.createQueueSession(false, Session.AUTO_ACKNOWLEDGE);
+      this.sender = this.session.createSender(this.destQueue);
+      ic.close();
+    } catch (NamingException | JMSException e) {
+      // TODO Auto-generated catch block
+      e.printStackTrace();
+    }
+  }
+
+  @PreDestroy
+  private void end() {
+    try {
+      this.connection.close();
+      this.session.close();
+      this.sender.close();
+    } catch (JMSException e) {
+      // TODO Auto-generated catch block
+      e.printStackTrace();
+    }
+  }
+
+  /**
+   * Envia os produtos a serem atualizados para a fila.
+   *
+   * @param productsToUpdate
+   */
+  public void send(final ArrayList<SettlementFinancialAdjustment> settlementFinancialAdjustment) {
+    try {
+      // Logger.getLogger(this.getClass().getName())
+      // .info("SettlementFinancialAdjustment: " + settlementFinancialAdjustment.toString());
+      ObjectMapper mapper = new ObjectMapper();
+      TextMessage message =
+          this.session.createTextMessage(mapper.writeValueAsString(settlementFinancialAdjustment));
+      this.sender.send(message);
+    } catch (Exception e) {
+      e.printStackTrace();
+      Logger.getLogger(this.getClass().getName())
+          .info("ContractedProductEditPriceMDBClient.send" + e);
+    }
+  }
 }

@@ -1,7 +1,5 @@
 /**
- * Cielo S.A.
- * Projeto BoB
- * Dir Desenvolvimento de Sistemas Bob-O50013375
+ * Cielo S.A. Projeto BoB Dir Desenvolvimento de Sistemas Bob-O50013375
  *
  * Copyright 2014
  */
@@ -15,86 +13,84 @@ package br.com.cielo.settlement.request.entity.enums;
  */
 public enum RequestTypeEnum {
 
-    /**
-     * Cancelamento.
-     */
-    REFUND("C"),
-    /**
-     * Ajuste Financeiro.
-     */
-    FINANCIAL_ADJUSTMENT("F"),
-    /**
-     * Cobrança
-     */
-    BILLING("B"),
+  /**
+   * Cancelamento.
+   */
+  REFUND("C"),
+  /**
+   * Ajuste Financeiro.
+   */
+  FINANCIAL_ADJUSTMENT("F"),
+  /**
+   * Cobranï¿½a
+   */
+  BILLING("B"),
 
-    /**
-     * Antecipação de Recebíveis - ARV
-     */
-    ANTICIPATION("A"),
+  /**
+   * Antecipaï¿½ï¿½o de Recebï¿½veis - ARV
+   */
+  ANTICIPATION("A"),
 
-    /**
-     * Chargeback
-     */
-    CHARGEBACK("H"),
+  /**
+   * Chargeback
+   */
+  CHARGEBACK("H"),
 
-    /**
-     * Estorno
-     */
-    ESTORNO("E"),
+  /**
+   * Estorno
+   */
+  ESTORNO("E"),
 
-    /**
-     * Farol
-     */
-    FAROL("L"),
+  /**
+   * Farol
+   */
+  FAROL("L"),
 
-    /**
-     * Recarga
-     */
-    RECHARGE("R"),
+  /**
+   * Recarga
+   */
+  RECHARGE("R"),
 
-    /**
-     * Promo
-     */
-    PROMO("P")
+  /**
+   * Promo
+   */
+  PROMO("P")
 
-    ;
+  ;
 
-    private String code;
+  private String code;
 
-    /**
-     * contrutor de RequestTypeEnum
-     *
-     * @param code
-     *            String
-     */
-    private RequestTypeEnum(final String code) {
-        this.code = code;
+  /**
+   * contrutor de RequestTypeEnum
+   *
+   * @param code String
+   */
+  private RequestTypeEnum(final String code) {
+    this.code = code;
+  }
+
+  /**
+   * Retorna o Enum correspondente ao cï¿½digo passado
+   *
+   * @param code codigo
+   * @return RequestTypeEnum
+   */
+  public static RequestTypeEnum parse(final String code) {
+    for (RequestTypeEnum requestType : RequestTypeEnum.values()) {
+      if (requestType.getCode().equals(code)) {
+        return requestType;
+      }
     }
+    throw new IllegalArgumentException("Unknown RequestTypeEnum [" + code + "]");
+  }
 
-    /**
-     * Retorna o Enum correspondente ao código passado
-     *
-     * @param code
-     *            codigo
-     * @return RequestTypeEnum
-     */
-    public static RequestTypeEnum parse(final String code) {
-        for (RequestTypeEnum requestType : RequestTypeEnum.values()) {
-            if (requestType.getCode().equals(code)) {
-                return requestType;
-            }
-        }
-        throw new IllegalArgumentException("Unknown RequestTypeEnum [" + code + "]");
-    }
-
-    /**
-     * Método get do atributo code
-     *
-     * @return O valor do atributo code
-     */
-    public String getCode() {
-        return this.code;
-    }
+  /**
+   * Mï¿½todo get do atributo code
+   *
+   * @return O valor do atributo code
+   */
+  public String getCode() {
+    return this.code;
+  }
 
 }

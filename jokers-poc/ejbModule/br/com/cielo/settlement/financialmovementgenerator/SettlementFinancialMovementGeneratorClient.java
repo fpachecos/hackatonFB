@@ -3,6 +3,7 @@ package br.com.cielo.settlement.financialmovementgenerator;
 import br.com.cielo.settlement.entity.SettlementFinancialMovement;
 import com.fasterxml.jackson.databind.ObjectMapper;
 
+import java.util.List;
 import java.util.logging.Logger;
 
 import javax.annotation.PostConstruct;
@@ -73,7 +74,7 @@ public class SettlementFinancialMovementGeneratorClient {
    * 
    * @param financialMovement - Movimento financeiro
    */
-  public void send(final SettlementFinancialMovement financialMovement) {
+  public void send(final List<SettlementFinancialMovement> financialMovement) {
     try {
       ObjectMapper mapper = new ObjectMapper();
       TextMessage message =

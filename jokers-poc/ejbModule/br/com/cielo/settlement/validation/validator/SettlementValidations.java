@@ -16,18 +16,17 @@ import br.com.cielo.settlement.validation.rule.FinancialAdjustmentRules;
 @Stateless
 public class SettlementValidations extends BaseValidations {
 
-    @EJB
-    private transient FinancialAdjustmentRules financialAdjustmentRules;
+  @EJB
+  private transient FinancialAdjustmentRules financialAdjustmentRules;
 
-    /**
-     * Criar validador para ajuste, e retorna movimento
-     *
-     * @param adjustment
-     *            SettlementAdjustment
-     * @return SettlementMovement
-     */
-    public SettlementMovement createMovementByAdjustment(final SettlementAdjustment adjustment,
-                    final Integer codCurrency) {
-        return this.financialAdjustmentRules.createFinancialMovement(adjustment, codCurrency);
-    }
+  /**
+   * Criar validador para ajuste, e retorna movimento.
+   *
+   * @param adjustment SettlementAdjustment
+   * @return SettlementMovement
+   */
+  public SettlementMovement createMovementByAdjustment(final SettlementAdjustment adjustment,
+      final Integer codCurrency) {
+    return this.financialAdjustmentRules.createFinancialMovement(adjustment, codCurrency);
+  }
 }

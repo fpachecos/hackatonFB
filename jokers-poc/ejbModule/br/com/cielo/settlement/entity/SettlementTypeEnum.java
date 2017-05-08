@@ -1,7 +1,5 @@
 /**
- * Cielo S.A.
- * Projeto BoB
- * Dir Desenvolvimento de Sistemas Bob-O50013375
+ * Cielo S.A. Projeto BoB Dir Desenvolvimento de Sistemas Bob-O50013375
  *
  * Copyright 2014
  */
@@ -18,87 +16,90 @@ import br.com.cielo.common.util.Enums;
  */
 public enum SettlementTypeEnum implements CodedEnum<String> {
 
-    /**
-     * Tipo Débito
-     */
-    DEBIT("D"),
-    /**
-     * Tipo Crédito
-     */
-    CREDIT("C");
+  /**
+   * Tipo Dï¿½bito
+   */
+  DEBIT("D"),
+  /**
+   * Tipo Crï¿½dito
+   */
+  CREDIT("C");
 
-    private String code;
+  private String code;
 
-    /**
-     * Defini code Construtor sobrecarregado.
-     *
-     * @param code código referente ao tipo de settlement.
-     */
-    private SettlementTypeEnum(final String code) {
-        this.code = code;
+  /**
+   * Defini code Construtor sobrecarregado.
+   *
+   * @param code cï¿½digo referente ao tipo de settlement.
+   */
+  private SettlementTypeEnum(final String code) {
+    this.code = code;
+  }
+
+  /*
+   * (non-Javadoc)
+   * 
+   * @see br.com.cielo.common.batch.entity.CodedEnum#getCode()
+   */
+  @Override
+  public String getCode() {
+    return this.code;
+  }
+
+  /**
+   * Valida se o cï¿½digo do banco estï¿½ na lista do tipo de Settlement Mï¿½todo parse. Utilizado para
+   * parse utilizando cï¿½digo do tipo de settlement.
+   *
+   * @param code cï¿½digo referente ao domï¿½cilio bancï¿½rio a ser criado
+   * @return SettlementTypeEnum entidade para definiï¿½ï¿½o de tipo de settlement.
+   */
+  public static SettlementTypeEnum parse(final String code) {
+    return Enums.parse(code, values(), CREDIT);
+  }
+
+  /**
+   * Traduz o tipo de liquidaï¿½ï¿½o do produto para a categoria de pagamento correspondente.
+   *
+   * @deprecated - conceitos diferentes, utilizar SettlementTypeEnum para tipo de liquidaï¿½ï¿½o e
+   *             PaymentCategoryEnum para tipo de pagamento
+   *
+   * @return Categoria de Pagamento correspondente ao Tipo de Liquidaï¿½ï¿½o do Produto Traduz o tipo de
+   *         liquidaï¿½ï¿½o do produto para a categoria de pagamento correspondente.
+   *
+   * @return Categoria de Pagamento correspondente ao Tipo de Liquidaï¿½ï¿½o do Produto
+   */
+  @Deprecated
+  public PaymentCategoryEnum toPaymentCategory() {
+
+    PaymentCategoryEnum paymentCategory;
+
+    if (SettlementTypeEnum.CREDIT.equals(this)) {
+      paymentCategory = PaymentCategoryEnum.CREDIT;
+    } else {
+      paymentCategory = PaymentCategoryEnum.DEBIT;
     }
 
-    /*
-     * (non-Javadoc)
-     * @see br.com.cielo.common.batch.entity.CodedEnum#getCode()
-     */
-    @Override
-    public String getCode() {
-        return this.code;
-    }
+    return paymentCategory;
+  }
 
-    /**
-     * Valida se o código do banco está na lista do tipo de Settlement Método parse. Utilizado para parse utilizando
-     * código do tipo de settlement.
-     *
-     * @param code código referente ao domícilio bancário a ser criado
-     * @return SettlementTypeEnum entidade para definição de tipo de settlement.
-     */
-    public static SettlementTypeEnum parse(final String code) {
-        return Enums.parse(code, values(), CREDIT);
-    }
+  /**
+   * Verifica se o tipo de liquidaï¿½ï¿½o ï¿½ crï¿½dito.
+   * 
+   * @param acronym - tipo de liquidaï¿½ï¿½o
+   * @return TRUE - ï¿½ CRï¿½DITO | FALSE - Nï¿½O ï¿½ CRï¿½DITO
+   */
+  public Boolean isCredit(final String acronym) {
+    return SettlementTypeEnum.CREDIT.equals(acronym);
+  }
 
-    /**
-     * Traduz o tipo de liquidação do produto para a categoria de pagamento correspondente.
-     *
-     * @deprecated - conceitos diferentes, utilizar SettlementTypeEnum para tipo de liquidação
-     * e PaymentCategoryEnum para tipo de pagamento
-     *
-     * @return Categoria de Pagamento correspondente ao Tipo de Liquidação do Produto
-     * Traduz o tipo de liquidação do produto para a categoria de pagamento correspondente.
-     *
-     * @return Categoria de Pagamento correspondente ao Tipo de Liquidação do Produto
-     */
-    @Deprecated
-    public PaymentCategoryEnum toPaymentCategory() {
-
-        PaymentCategoryEnum paymentCategory;
-
-        if (SettlementTypeEnum.CREDIT.equals(this)) {
-            paymentCategory = PaymentCategoryEnum.CREDIT;
-        } else {
-            paymentCategory = PaymentCategoryEnum.DEBIT;
-        }
-
-        return paymentCategory;
-    }
-
-    /**
-     * Verifica se o tipo de liquidação é crédito.
-     * @param acronym - tipo de liquidação
-     * @return TRUE - É CRÉDITO | FALSE - NÃO É CRÉDITO
-     */
-    public Boolean isCredit(final String acronym) {
-        return SettlementTypeEnum.CREDIT.equals(acronym);
-    }
-
-    /**
-     * Verifica se o tipo de liquidação é débito.
-     * @param acronym - tipo de liquidação
-     * @return TRUE - É Débito | FALSE - NÃO É DÉBITO
-     */
-    public Boolean isDebit(final String acronym) {
-        return SettlementTypeEnum.DEBIT.equals(acronym);
-    }
+  /**
+   * Verifica se o tipo de liquidaï¿½ï¿½o ï¿½ dï¿½bito.
+   * 
+   * @param acronym - tipo de liquidaï¿½ï¿½o
+   * @return TRUE - ï¿½ Dï¿½bito | FALSE - Nï¿½O ï¿½ Dï¿½BITO
+   */
+  public Boolean isDebit(final String acronym) {
+    return SettlementTypeEnum.DEBIT.equals(acronym);
+  }
 
 }

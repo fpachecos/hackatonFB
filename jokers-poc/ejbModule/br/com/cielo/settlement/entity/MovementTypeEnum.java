@@ -1,7 +1,5 @@
 /**
- * Cielo S.A.
- * Projeto BoB
- * Dir Desenvolvimento de Sistemas Bob-O50013375
+ * Cielo S.A. Projeto BoB Dir Desenvolvimento de Sistemas Bob-O50013375
  *
  * Copyright 2014
  */
@@ -15,255 +13,251 @@ package br.com.cielo.settlement.entity;
  */
 public enum MovementTypeEnum {
 
-    /**
-     * TIPO Ajuste a Crédito
-     */
-    CREDIT_ADJUST(1, "Ajuste a Crédito", "C"),
-    /**
-     * TIPO Ajuste a Débito
-     */
-    DEBIT_ADJUST(2, "Ajuste a Débito", "D"),
-    /**
-     * TIPO Chargeback (Debito)
-     */
-    CHARGEBACK(3, "Chargeback (Debito)", "D"),
-    /**
-     * TIPO Reversão de Chargeback (Credito)
-     */
-    CHARGEBACK_REVERSION(4, "Reversão de Chargeback (Credito)", "C"),
-    /**
-     * TIPO Antecipação de Recebíveis
-     */
-    ADVANCE_RECEIVABLES(5, "Antecipação de Recebíveis", null),
-    /**
-     * TIPO Compensação
-     */
-    CLEARING(6, "Compensação", null),
+  /**
+   * TIPO Ajuste a Crï¿½dito
+   */
+  CREDIT_ADJUST(1, "Ajuste a Crï¿½dito", "C"),
+  /**
+   * TIPO Ajuste a Dï¿½bito
+   */
+  DEBIT_ADJUST(2, "Ajuste a Dï¿½bito", "D"),
+  /**
+   * TIPO Chargeback (Debito)
+   */
+  CHARGEBACK(3, "Chargeback (Debito)", "D"),
+  /**
+   * TIPO Reversï¿½o de Chargeback (Credito)
+   */
+  CHARGEBACK_REVERSION(4, "Reversï¿½o de Chargeback (Credito)", "C"),
+  /**
+   * TIPO Antecipaï¿½ï¿½o de Recebï¿½veis
+   */
+  ADVANCE_RECEIVABLES(5, "Antecipaï¿½ï¿½o de Recebï¿½veis", null),
+  /**
+   * TIPO Compensaï¿½ï¿½o
+   */
+  CLEARING(6, "Compensaï¿½ï¿½o", null),
 
-    ADVANCE_RECEIVABLES_COUNTER_PART(7, "Contrapartida de Antecipação de Recebíveis", null),
+  ADVANCE_RECEIVABLES_COUNTER_PART(7, "Contrapartida de Antecipaï¿½ï¿½o de Recebï¿½veis", null),
 
-    CHARGEBACK_CANCEL(8, "Chargeback de Cancelamento", null),
-    /**
-     * TIPO Transação de Venda
-     */
-    SALE_TRANSACTION(22, "Transação de Venda", null),
-    /**
-     * TIPO Transação de Cancelamento
-     */
-    REFUND_TRANSACTION(27, "Transação de Cancelamento", null),
-    /**
-     * TIPO Reversão de Cancelamento
-     */
-    REVERSAL_REFUND(28, "Reversão de Cancelamento", "D"),
+  CHARGEBACK_CANCEL(8, "Chargeback de Cancelamento", null),
+  /**
+   * TIPO Transaï¿½ï¿½o de Venda
+   */
+  SALE_TRANSACTION(22, "Transaï¿½ï¿½o de Venda", null),
+  /**
+   * TIPO Transaï¿½ï¿½o de Cancelamento
+   */
+  REFUND_TRANSACTION(27, "Transaï¿½ï¿½o de Cancelamento", null),
+  /**
+   * TIPO Reversï¿½o de Cancelamento
+   */
+  REVERSAL_REFUND(28, "Reversï¿½o de Cancelamento", "D"),
 
-    /**
-     * TIPO Ajuste a débito - Entrada em Debit Balance
-     */
-    DEBIT_ADJUST_GO_TO_DEBIT_BALANCE(29, "Ajuste a débito - Debit Balance", null),
-    /**
-     * TIPO Ajuste a crédito - Entrada em Debit Balance
-     */
-    CREDIT_ADJUST_GO_TO_DEBIT_BALANCE(30, "Ajuste a crédito - Debit Balance", null),
-    /**
-     * TIPO Ajuste a crédito - Retorno de Debit Balance
-     */
-    CREDIT_ADJUST_RETURN_FROM_DEBIT_BALANCE(31, "Ajuste a crédito - Retorno de Debit Balance", null),
-    /**
-     * TIPO Ajuste a débito - Retorno de Debit Balance
-     */
-    DEBIT_ADJUST_RETURN_FROM_DEBIT_BALANCE(32, "Ajuste a débito - Retorno de Debit Balance", null),
-    /**
-     * TIPO Ajuste a débito - Suspenso
-     */
-    DEBIT_ADJUST_SUSPENDED(33, "Ajuste a débito - Suspenso", null),
-    /**
-     * TIPO Ajuste a crédito - Suspenso
-     */
-    CREDIT_ADJUST_SUSPENDED(34, "Ajuste a crédito - Suspenso", null),
-    /**
-     * TIPO Ajuste a crédito - Retorno de Suspensão
-     */
-    CREDIT_ADJUST_RETURN_FROM_SUSPENDED(35, "Ajuste a crédito - Retorno de Suspensão", null),
-    /**
-     * TIPO Ajuste a débito - Retorno de Suspensão
-     */
-    DEBIT_ADJUST_RETURN_FROM_SUSPENDED(36, "Ajuste a débito - Retorno de Suspensão", null),
-    /**
-     * TIPO Cobrança
-     */
-    CHARGING(37, "Cobrança", "D"),
+  /**
+   * TIPO Ajuste a dï¿½bito - Entrada em Debit Balance
+   */
+  DEBIT_ADJUST_GO_TO_DEBIT_BALANCE(29, "Ajuste a dï¿½bito - Debit Balance", null),
+  /**
+   * TIPO Ajuste a crï¿½dito - Entrada em Debit Balance
+   */
+  CREDIT_ADJUST_GO_TO_DEBIT_BALANCE(30, "Ajuste a crï¿½dito - Debit Balance", null),
+  /**
+   * TIPO Ajuste a crï¿½dito - Retorno de Debit Balance
+   */
+  CREDIT_ADJUST_RETURN_FROM_DEBIT_BALANCE(31, "Ajuste a crï¿½dito - Retorno de Debit Balance", null),
+  /**
+   * TIPO Ajuste a dï¿½bito - Retorno de Debit Balance
+   */
+  DEBIT_ADJUST_RETURN_FROM_DEBIT_BALANCE(32, "Ajuste a dï¿½bito - Retorno de Debit Balance", null),
+  /**
+   * TIPO Ajuste a dï¿½bito - Suspenso
+   */
+  DEBIT_ADJUST_SUSPENDED(33, "Ajuste a dï¿½bito - Suspenso", null),
+  /**
+   * TIPO Ajuste a crï¿½dito - Suspenso
+   */
+  CREDIT_ADJUST_SUSPENDED(34, "Ajuste a crï¿½dito - Suspenso", null),
+  /**
+   * TIPO Ajuste a crï¿½dito - Retorno de Suspensï¿½o
+   */
+  CREDIT_ADJUST_RETURN_FROM_SUSPENDED(35, "Ajuste a crï¿½dito - Retorno de Suspensï¿½o", null),
+  /**
+   * TIPO Ajuste a dï¿½bito - Retorno de Suspensï¿½o
+   */
+  DEBIT_ADJUST_RETURN_FROM_SUSPENDED(36, "Ajuste a dï¿½bito - Retorno de Suspensï¿½o", null),
+  /**
+   * TIPO Cobranï¿½a
+   */
+  CHARGING(37, "Cobranï¿½a", "D"),
 
-    /**
-     * Entrada em retenção
-     */
-    ENTERING_RETENTION(38, "Início de Retenção", null),
+  /**
+   * Entrada em retenï¿½ï¿½o
+   */
+  ENTERING_RETENTION(38, "Inï¿½cio de Retenï¿½ï¿½o", null),
 
-    /**
-     * Saída de retenção.
-     */
-    LEAVING_RETENTION(40, "Término de Retenção", null),
+  /**
+   * Saï¿½da de retenï¿½ï¿½o.
+   */
+  LEAVING_RETENTION(40, "Tï¿½rmino de Retenï¿½ï¿½o", null),
 
-    /**
-     * Saída de retenção por motivo de arv
-     */
-    LEAVING_RETENTION_BY_ARV_REASON(41, "Término de retenção por motivo de ARV", null),
+  /**
+   * Saï¿½da de retenï¿½ï¿½o por motivo de arv
+   */
+  LEAVING_RETENTION_BY_ARV_REASON(41, "Tï¿½rmino de retenï¿½ï¿½o por motivo de ARV", null),
 
-    /**
-     * Rejeitado Compensado
-     */
-    REJECT_COMPESATION(42, "Rejeitado Compensado ", null),
+  /**
+   * Rejeitado Compensado
+   */
+  REJECT_COMPESATION(42, "Rejeitado Compensado ", null),
 
-    /**
-     * Desconto
-     */
-    BILLING_DISCONT(43, "Desconto", "C"),
+  /**
+   * Desconto
+   */
+  BILLING_DISCONT(43, "Desconto", "C"),
 
-    /**
-     * Desconto Mobile
-     */
-    BILLING_MOBILE_DISCOUNT(44, "Desconto - Mobile", null),
+  /**
+   * Desconto Mobile
+   */
+  BILLING_MOBILE_DISCOUNT(44, "Desconto - Mobile", null),
 
-    /**
-     * Cobrança (EC Cielo)
-     */
-    BILLING_CUSTOMER_CIELO(45, "Cobrança (EC Cielo)", null),
+  /**
+   * Cobranï¿½a (EC Cielo)
+   */
+  BILLING_CUSTOMER_CIELO(45, "Cobranï¿½a (EC Cielo)", null),
 
-    /**
-     * Estorno Cobrança (POS)
-     */
-    BILLING_REVERSAL_POS(46, "EstornoCobrança (POS)", null),
+  /**
+   * Estorno Cobranï¿½a (POS)
+   */
+  BILLING_REVERSAL_POS(46, "EstornoCobranï¿½a (POS)", null),
 
-    /**
-     * Estorno Cobrança (Mobile)
-     */
-    BILLING_REVERSAL_MOBILE(47, "EstornoCobrança (Mobile)", null),
+  /**
+   * Estorno Cobranï¿½a (Mobile)
+   */
+  BILLING_REVERSAL_MOBILE(47, "EstornoCobranï¿½a (Mobile)", null),
 
-    /**
-     * Cobrança Retroativa de Chargeback - Mobile
-     */
-    BILLING_RETROACTIVE_CHARGEBACK(48, "Cobrança Retroativa de Chargeback - Mobile", null),
+  /**
+   * Cobranï¿½a Retroativa de Chargeback - Mobile
+   */
+  BILLING_RETROACTIVE_CHARGEBACK(48, "Cobranï¿½a Retroativa de Chargeback - Mobile", null),
 
-    /**
-     * Contrapartida de Compensacao de Credito
-     */
-    LEAVING_CREDIT(50, "Retirada de Credito Compensação", null),
+  /**
+   * Contrapartida de Compensacao de Credito
+   */
+  LEAVING_CREDIT(50, "Retirada de Credito Compensaï¿½ï¿½o", null),
 
-    /**
-     * Contrapartida de Compensacao de Debito
-     */
-    ENTERING_CREDIT(51, "Entrada de Credito Compensação", null),
+  /**
+   * Contrapartida de Compensacao de Debito
+   */
+  ENTERING_CREDIT(51, "Entrada de Credito Compensaï¿½ï¿½o", null),
 
-    /**
-     * Cobrança Retroativa de Chargeback - Mobile
-     */
-    CHARGING_REVERSAL_CHARGEBACK_MOBILE(48, "Cobrança Retroativa de Chargeback - Mobile", null),
+  /**
+   * Cobranï¿½a Retroativa de Chargeback - Mobile
+   */
+  CHARGING_REVERSAL_CHARGEBACK_MOBILE(48, "Cobranï¿½a Retroativa de Chargeback - Mobile", null),
 
-    /**
-     * Cobrança (EC Cielo)
-     */
-    CHARGING_EC_CIELO(45, "Cobrança (EC Cielo)", null),
+  /**
+   * Cobranï¿½a (EC Cielo)
+   */
+  CHARGING_EC_CIELO(45, "Cobranï¿½a (EC Cielo)", null),
 
-    /**
-     * Cobrança Farol
-     */
-    CHARGE_LIGHTHOUSE(52, "Cobrança Farol", null),
+  /**
+   * Cobranï¿½a Farol
+   */
+  CHARGE_LIGHTHOUSE(52, "Cobranï¿½a Farol", null),
 
-    /**
-     * Recarga
-     */
-    RECHARGE(53, "Recarga", null),
+  /**
+   * Recarga
+   */
+  RECHARGE(53, "Recarga", null),
 
-    /**
-     * Movimento FIDC
-     */
-    MOVEMENT_FIDC(54, "Movimento FIDC", null),
+  /**
+   * Movimento FIDC
+   */
+  MOVEMENT_FIDC(54, "Movimento FIDC", null),
 
-    /**
-     * Reversão de contestação de cancelamento
-     */
-    VOUCHER_CHARGEBACK_REVERSAL(55, "Reversão de contestação de cancelamento", null),
-    /**
-     * Promo
-     */
-    PROMO(56, "Promo", null),
-    /**
-     * Contrapartida corretiva.
-     */
-    CORRECTIVE_COUNTERPART(57, "Contrapartida corretiva", null);
+  /**
+   * Reversï¿½o de contestaï¿½ï¿½o de cancelamento
+   */
+  VOUCHER_CHARGEBACK_REVERSAL(55, "Reversï¿½o de contestaï¿½ï¿½o de cancelamento", null),
+  /**
+   * Promo
+   */
+  PROMO(56, "Promo", null),
+  /**
+   * Contrapartida corretiva.
+   */
+  CORRECTIVE_COUNTERPART(57, "Contrapartida corretiva", null);
 
-    /**
-     * Código MovementTypeEnum
-     */
-    private Integer code;
+  /**
+   * Cï¿½digo MovementTypeEnum
+   */
+  private Integer code;
 
-    /**
-     * Descrição MovementTypeEnum
-     */
-    private String description;
+  /**
+   * Descriï¿½ï¿½o MovementTypeEnum
+   */
+  private String description;
 
-    /**
-     * Sigla MovementTypeEnum
-     */
-    private String acronym;
+  /**
+   * Sigla MovementTypeEnum
+   */
+  private String acronym;
 
-    /**
-     * contrutor
-     *
-     * @param code
-     *            codigo
-     * @param description
-     *            descricao
-     * @param acronym
-     *            String
-     */
-    private MovementTypeEnum(final Integer code, final String description, final String acronym) {
-        this.code = code;
-        this.description = description;
-        this.acronym = acronym;
+  /**
+   * contrutor
+   *
+   * @param code codigo
+   * @param description descricao
+   * @param acronym String
+   */
+  private MovementTypeEnum(final Integer code, final String description, final String acronym) {
+    this.code = code;
+    this.description = description;
+    this.acronym = acronym;
+  }
+
+  /**
+   * Retorna o Enum correspondente ao cï¿½digo passado
+   *
+   * @param code codigo
+   * @return MovementTypeEnum
+   */
+  public static MovementTypeEnum parse(final Integer code) {
+
+    for (final MovementTypeEnum movementType : MovementTypeEnum.values()) {
+      if (movementType.getCode().equals(code)) {
+        return movementType;
+      }
     }
+    throw new IllegalArgumentException("Unknown MovementTypeEnum [" + code + "]");
+  }
 
-    /**
-     * Retorna o Enum correspondente ao código passado
-     *
-     * @param code
-     *            codigo
-     * @return MovementTypeEnum
-     */
-    public static MovementTypeEnum parse(final Integer code) {
+  /**
+   * Mï¿½todo get do atributo code
+   *
+   * @return O valor do atributo code
+   */
+  public Integer getCode() {
+    return this.code;
+  }
 
-        for (final MovementTypeEnum movementType : MovementTypeEnum.values()) {
-            if (movementType.getCode().equals(code)) {
-                return movementType;
-            }
-        }
-        throw new IllegalArgumentException("Unknown MovementTypeEnum [" + code + "]");
-    }
+  /**
+   * Mï¿½todo get do atributo description
+   *
+   * @return O valor do atributo description
+   */
+  public String getDescription() {
+    return this.description;
+  }
 
-    /**
-     * Método get do atributo code
-     *
-     * @return O valor do atributo code
-     */
-    public Integer getCode() {
-        return this.code;
-    }
-
-    /**
-     * Método get do atributo description
-     *
-     * @return O valor do atributo description
-     */
-    public String getDescription() {
-        return this.description;
-    }
-
-    /**
-     * Método get do atributo acronym
-     *
-     * @return O valor do atributo acronym
-     */
-    public final String getAcronym() {
-        return this.acronym;
-    }
+  /**
+   * Mï¿½todo get do atributo acronym
+   *
+   * @return O valor do atributo acronym
+   */
+  public final String getAcronym() {
+    return this.acronym;
+  }
 
 }
