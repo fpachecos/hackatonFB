@@ -15,7 +15,6 @@ import javax.jms.QueueSender;
 import javax.jms.QueueSession;
 import javax.jms.Session;
 import javax.jms.TextMessage;
-import javax.json.stream.JsonGenerator;
 import javax.naming.InitialContext;
 import javax.naming.NamingException;
 

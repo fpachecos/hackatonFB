@@ -10,7 +10,7 @@ package br.com.cielo.settlement.entity;
 import java.io.Serializable;
 
 /**
- * Classe que representa os tipos de lançamentos da transação.
+ * Classe que representa os tipos de lanï¿½amentos da transaï¿½ï¿½o.
  * 
  * @author <a href="mailto:rsousa@cielo.com.br>NOME_EXTENSO</a>
  * @version $Id: EntryType.java 56784 2016-02-04 21:41:26Z eyvdbm $
@@ -18,6 +18,8 @@ import java.io.Serializable;
 public class EntryType implements Serializable{
 
 	private static final long serialVersionUID = 1L;
+	
+	public EntryType(){}
 	
     /**
      * Campo EntryType REFUND_ADJUSTEMENT
@@ -28,25 +30,25 @@ public class EntryType implements Serializable{
      * Campo EntryType REVERSAL_ADJUSTEMENT
      */
     public static final EntryType REVERSAL_ADJUSTMENT =
-                    new EntryType(20006, "Ajuste de reversão de cancelamento");
+                    new EntryType(20006, "Ajuste de reversï¿½o de cancelamento");
 
     /**
      * Campo EntryType GENERIC_ADJUSTMENT
      */
     public static final EntryType GENERIC_ADJUSTMENT =
-                    new EntryType(20009, "Ajuste Genérico");
+                    new EntryType(20009, "Ajuste Genï¿½rico");
 
     /**
-     * Tipo de lançamento para ajustes ARV.
+     * Tipo de lanï¿½amento para ajustes ARV.
      */
     public static final EntryType ANTICIPATION_ADJUSTMENT =
-                    new EntryType(20010, "Ajuste crédito para efeito de antecipação de recebíveis");
+                    new EntryType(20010, "Ajuste crï¿½dito para efeito de antecipaï¿½ï¿½o de recebï¿½veis");
 
    /**
-    * Tipo de lançamento para ajustes Settlement/Biiling.
+    * Tipo de lanï¿½amento para ajustes Settlement/Biiling.
     */
    public static final EntryType SETTLEMENT_BIILING_ADJUSTMENT =
-                   new EntryType(20011, "Ajuste de lançamento de cobrança");
+                   new EntryType(20011, "Ajuste de lanï¿½amento de cobranï¿½a");
 
 
     /**
@@ -72,7 +74,7 @@ public class EntryType implements Serializable{
     private transient String descriptionType;
 
     /**
-     * Método construtor para criar o objeto EntryType.
+     * Mï¿½todo construtor para criar o objeto EntryType.
      * 
      * @param codeType tipo do codigo
      * @param descriptionType tipo da descricao

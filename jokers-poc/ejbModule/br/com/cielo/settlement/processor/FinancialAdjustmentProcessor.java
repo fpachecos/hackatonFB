@@ -1,7 +1,5 @@
 /**
- * Cielo S.A.
- * Projeto BoB
- * Dir Desenvolvimento de Sistemas Bob-O50013375
+ * Cielo S.A. Projeto BoB Dir Desenvolvimento de Sistemas Bob-O50013375
  *
  * Copyright 2014
  */
@@ -25,31 +23,34 @@ import br.com.cielo.settlement.service.SettlementFinancialAdjustmentService;
 @Stateless
 public class FinancialAdjustmentProcessor {
 
-    /**
-     * InjeÁ„o de {@link SettlementFinancialAdjustmentService }
-     */
-    @EJB
-    private transient SettlementFinancialAdjustmentService financialAdjustmentService;
-    
-    @EJB
-    private transient SettlementFinancialMovementGeneratorClient settlementFinancialMovementGeneratorClient;
+  /**
+   * Inje√ß√£oo de {@link SettlementFinancialAdjustmentService}.
+   */
+  @EJB
+  private transient SettlementFinancialAdjustmentService financialAdjustmentService;
 
-    /*
-     * (non-Javadoc)
-     * @see br.com.cielo.common.batch.job.BusinessProcessor#process(java.lang.Object)
-     */
-    public SettlementFinancialAdjustment process(final SettlementFinancialAdjustment entity) {
-        try {
-			SettlementFinancialAdjustment generatedAdjustment = this.financialAdjustmentService.generateAdjustment(entity);
-			
-			//Chamando prÛximo processamento - 1010
-			settlementFinancialMovementGeneratorClient.send(new SettlementFinancialMovement(generatedAdjustment) );
-			return generatedAdjustment;
-		} catch (BusinessException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-			return null;
-		}
+  @EJB
+  private transient SettlementFinancialMovementGeneratorClient settFinancialMovementGeneratorClient;
+
+  /**
+   * Processa regra de neg√≥cio do "JOB 1009".
+   * @param entity - Ajuste financeiro
+   * @return - Ajuste financeiro
+   */
+  public SettlementFinancialAdjustment process(final SettlementFinancialAdjustment entity) {
+    try {
+      SettlementFinancialAdjustment generatedAdjustment =
+          this.financialAdjustmentService.generateAdjustment(entity);
+
+      // Chamando pr√≥ximo processamento - 1010
+      this.settFinancialMovementGeneratorClient
+          .send(new SettlementFinancialMovement(entity.getAdjustment()));
+      return generatedAdjustment;
+    } catch (BusinessException e) {
+      // TODO Auto-generated catch block
+      e.printStackTrace();
+      return null;
     }
+  }
 
 }

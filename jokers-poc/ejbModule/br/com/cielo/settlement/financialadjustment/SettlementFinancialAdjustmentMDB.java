@@ -11,7 +11,6 @@ import javax.ejb.MessageDriven;
 import javax.jms.JMSException;
 import javax.jms.Message;
 import javax.jms.MessageListener;
-import javax.jms.ObjectMessage;
 import javax.jms.TextMessage;
 
 import com.fasterxml.jackson.core.JsonParseException;
@@ -43,14 +42,7 @@ public class SettlementFinancialAdjustmentMDB implements MessageListener {
 		ArrayList<SettlementFinancialAdjustment> entityList = null;
 		
 		try {
-			// DomainObject domainObject;
-			if (message instanceof ObjectMessage) {
-				ObjectMessage msg = (ObjectMessage) message;
-
-				if (msg.getObject() instanceof ArrayList) {
-					entityList = (ArrayList<SettlementFinancialAdjustment>) msg.getObject();
-				}
-			} else if (message instanceof TextMessage) {
+			if (message instanceof TextMessage) {
 				TextMessage msg = (TextMessage) message;
 				ObjectMapper mapper = new ObjectMapper();
 				try {

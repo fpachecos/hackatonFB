@@ -10,7 +10,7 @@ package br.com.cielo.settlement.entity;
 import java.util.Date;
 
 /**
- * Campos utilizados na geração de um hash de agrupamento dos lançamentos
+ * Campos utilizados na geraï¿½ï¿½o de um hash de agrupamento dos lanï¿½amentos
  * financeiros.
  *
  * @author <a href="mailto:salvador@cielo.com.br>Marcos Paulo Salvador de
@@ -20,7 +20,7 @@ import java.util.Date;
 public class HashFieldsCompany {
 
     /**
-     * Data de liquidação.
+     * Data de liquidaï¿½ï¿½o.
      */
     private Date settlementDate;
 
@@ -35,17 +35,17 @@ public class HashFieldsCompany {
     private String loadFileId;
 
     /**
-     * Código do estabelecimento comercial.
+     * Cï¿½digo do estabelecimento comercial.
      */
     private Long companyNumber;
 
     /**
-     * Código do produto.
+     * Cï¿½digo do produto.
      */
     private Integer productCode;
 
     /**
-     * Identificador da subpartição da tabela.
+     * Identificador da subpartiï¿½ï¿½o da tabela.
      */
     private Integer companyModNumber;
 
@@ -60,242 +60,242 @@ public class HashFieldsCompany {
     private Integer movementType;
 
     /**
-     * Moeda de liquidação.
+     * Moeda de liquidaï¿½ï¿½o.
      */
     private Integer fundingCurrency;
 
     /**
-     * Número da Parcela.
+     * Nï¿½mero da Parcela.
      */
     private Integer installmentSequenceNumber;
 
     /**
-     * Construtor padrão.
+     * Construtor padrï¿½o.
      *
      * @param settlementDate
-     *            data de liquidação.
+     *            data de liquidaï¿½ï¿½o.
      * @param batchDate
      *            data de captura.
      * @param loadFileId
      *            identificador de carga do arquivo.
      * @param customerNumber
-     *            código do estabelecimento comercial.
+     *            cï¿½digo do estabelecimento comercial.
      * @param productCode
-     *            código do produto.
+     *            cï¿½digo do produto.
      * @param customerModNumber
-     *            identificador de subpartição.
+     *            identificador de subpartiï¿½ï¿½o.
      * @param installmentSegment
      *            segmento do parcelado.
      * @param movementType
      *            tipo do movimento.
      * @param fundingCurrency
-     *            moeda de liquidação.
+     *            moeda de liquidaï¿½ï¿½o.
      *
      */
     public HashFieldsCompany(final Date settlementDate, final Date batchDate, final String loadFileId,
-                    final Long companyNumber, final Integer productCode, final Integer companyModNumber,
-                    final Integer installmentSegment, final Integer movementType, final Integer fundingCurrency,
-                    final Integer installmentSequenceNumber) {
-        setSettlementDate(settlementDate);
-        setBatchDate(batchDate);
-        setLoadFileId(loadFileId);
-        setCompanyNumber(companyNumber);
-        setProductCode(productCode);
-        setCompanyModNumber(companyModNumber);
-        setInstallmentSegment(installmentSegment);
-        setMovementType(movementType);
-        setFundingCurrency(fundingCurrency);
-        setInstallmentSequenceNumber(installmentSequenceNumber);
+	    final Long companyNumber, final Integer productCode, final Integer companyModNumber,
+	    final Integer installmentSegment, final Integer movementType, final Integer fundingCurrency,
+	    final Integer installmentSequenceNumber) {
+	setSettlementDate(settlementDate);
+	setBatchDate(batchDate);
+	setLoadFileId(loadFileId);
+	setCompanyNumber(companyNumber);
+	setProductCode(productCode);
+	setCompanyModNumber(companyModNumber);
+	setInstallmentSegment(installmentSegment);
+	setMovementType(movementType);
+	setFundingCurrency(fundingCurrency);
+	setInstallmentSequenceNumber(installmentSequenceNumber);
     }
 
     /**
-     * Método get do atributo settlementDate
+     * Mï¿½todo get do atributo settlementDate
      *
      * @return O valor do atributo settlementDate
      */
     public Date getSettlementDate() {
-        return this.settlementDate;
+	return this.settlementDate;
     }
 
     /**
-     * Método set do atributo settlementDate
+     * Mï¿½todo set do atributo settlementDate
      *
      * @param settlementDate
      *            Valor para setar no atributo settlementDate
      */
     protected void setSettlementDate(final Date settlementDate) {
-        this.settlementDate = settlementDate;
+	this.settlementDate = settlementDate;
     }
 
     /**
-     * Método get do atributo batchDate
+     * Mï¿½todo get do atributo batchDate
      *
      * @return O valor do atributo batchDate
      */
     public Date getBatchDate() {
-        return this.batchDate;
+	return this.batchDate;
     }
 
     /**
-     * Método set do atributo batchDate
+     * Mï¿½todo set do atributo batchDate
      *
      * @param batchDate
      *            Valor para setar no atributo batchDate
      */
     protected void setBatchDate(final Date batchDate) {
-        this.batchDate = batchDate;
+	this.batchDate = batchDate;
     }
 
     /**
-     * Método get do atributo loadFileId
+     * Mï¿½todo get do atributo loadFileId
      *
      * @return O valor do atributo loadFileId
      */
     public String getLoadFileId() {
-        return this.loadFileId;
+	return this.loadFileId;
     }
 
     /**
-     * Método set do atributo loadFileId
+     * Mï¿½todo set do atributo loadFileId
      *
      * @param loadFileId
      *            Valor para setar no atributo loadFileId
      */
     protected void setLoadFileId(final String loadFileId) {
-        this.loadFileId = loadFileId;
+	this.loadFileId = loadFileId;
     }
 
     /**
-     * Método get do atributo companyNumber
+     * Mï¿½todo get do atributo companyNumber
      *
      * @return O valor do atributo companyNumber
      */
     public Long getCompanyNumber() {
-        return this.companyNumber;
+	return this.companyNumber;
     }
 
     /**
-     * Método set do atributo companyNumber
+     * Mï¿½todo set do atributo companyNumber
      *
      * @param companyNumber
      *            Valor para setar no atributo companyNumber
      */
     public void setCompanyNumber(final Long companyNumber) {
-        this.companyNumber = companyNumber;
+	this.companyNumber = companyNumber;
     }
 
     /**
-     * Método get do atributo productCode
+     * Mï¿½todo get do atributo productCode
      *
      * @return O valor do atributo productCode
      */
     public Integer getProductCode() {
-        return this.productCode;
+	return this.productCode;
     }
 
     /**
-     * Método set do atributo productCode
+     * Mï¿½todo set do atributo productCode
      *
      * @param productCode
      *            Valor para setar no atributo productCode
      */
     protected void setProductCode(final Integer productCode) {
-        this.productCode = productCode;
+	this.productCode = productCode;
     }
 
     /**
-     * Método get do atributo companyModNumber
+     * Mï¿½todo get do atributo companyModNumber
      *
      * @return O valor do atributo companyModNumber
      */
     public Integer getCompanyModNumber() {
-        return this.companyModNumber;
+	return this.companyModNumber;
     }
 
     /**
-     * Método set do atributo companyModNumber
+     * Mï¿½todo set do atributo companyModNumber
      *
      * @param companyModNumber
      *            Valor para setar no atributo companyModNumber
      */
     public void setCompanyModNumber(final Integer companyModNumber) {
-        this.companyModNumber = companyModNumber;
+	this.companyModNumber = companyModNumber;
     }
 
     /**
-     * Método get do atributo installmentSegment
+     * Mï¿½todo get do atributo installmentSegment
      *
      * @return O valor do atributo installmentSegment
      */
     public Integer getInstallmentSegment() {
-        return this.installmentSegment;
+	return this.installmentSegment;
     }
 
     /**
-     * Método set do atributo installmentSegment
+     * Mï¿½todo set do atributo installmentSegment
      *
      * @param installmentSegment
      *            Valor para setar no atributo installmentSegment
      */
     protected void setInstallmentSegment(final Integer installmentSegment) {
-        this.installmentSegment = installmentSegment;
+	this.installmentSegment = installmentSegment;
     }
 
     /**
-     * Método get do atributo movementType
+     * Mï¿½todo get do atributo movementType
      *
      * @return O valor do atributo movementType
      */
     public Integer getMovementType() {
-        return this.movementType;
+	return this.movementType;
     }
 
     /**
-     * Método set do atributo movementType
+     * Mï¿½todo set do atributo movementType
      *
      * @param movementType
      *            Valor para setar no atributo movementType
      */
     protected void setMovementType(final Integer movementType) {
-        this.movementType = movementType;
+	this.movementType = movementType;
     }
 
     /**
-     * Método get do atributo fundingCurrency
+     * Mï¿½todo get do atributo fundingCurrency
      *
      * @return O valor do atributo fundingCurrency
      */
     public Integer getFundingCurrency() {
-        return this.fundingCurrency;
+	return this.fundingCurrency;
     }
 
     /**
-     * Método set do atributo fundingCurrency
+     * Mï¿½todo set do atributo fundingCurrency
      *
      * @param fundingCurrency
      *            Valor para setar no atributo fundingCurrency
      */
     protected void setFundingCurrency(final Integer fundingCurrency) {
-        this.fundingCurrency = fundingCurrency;
+	this.fundingCurrency = fundingCurrency;
     }
 
     /**
-     * Método get do atributo installmentSequenceNumber
+     * Mï¿½todo get do atributo installmentSequenceNumber
      *
      * @return O valor do atributo installmentSequenceNumber
      */
     public final Integer getInstallmentSequenceNumber() {
-        return this.installmentSequenceNumber;
+	return this.installmentSequenceNumber;
     }
 
     /**
-     * Método set do atributo installmentSequenceNumber
+     * Mï¿½todo set do atributo installmentSequenceNumber
      *
      * @param installmentSequenceNumber
      *            Valor para setar no atributo installmentSequenceNumber
      */
     public final void setInstallmentSequenceNumber(final Integer installmentSequenceNumber) {
-        this.installmentSequenceNumber = installmentSequenceNumber;
+	this.installmentSequenceNumber = installmentSequenceNumber;
     }
 
 }

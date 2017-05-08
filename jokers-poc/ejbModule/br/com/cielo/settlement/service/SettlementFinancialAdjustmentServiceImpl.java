@@ -217,6 +217,7 @@ public class SettlementFinancialAdjustmentServiceImpl implements SettlementFinan
 			financialAdjustment.setCdStatusRequest(FinanceAdjustmentStatusEnum.REJECTED);
 		}
 
+		adjustment.setFinancialAdjustmentNumber("1");
 		financialAdjustment.setAdjustment(adjustment);
 		
 		settlementAdjustmentRepository.createAdjustment(financialAdjustment);

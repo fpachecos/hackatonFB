@@ -29,7 +29,7 @@ public class SettlementAdjustmentRepositoryImpl implements SettlementAdjustmentR
 	@Override
 	public void createAdjustment(SettlementFinancialAdjustment item) {
 		this.entityManager.createNativeQuery(SettlementAdjustmentRepository.INSERT)
-				.setParameter(1, 1)
+				.setParameter(1, item.getAdjustment().getFinancialAdjustmentNumber())
 				.setParameter(2, item.getAdjustment().getBatchDate(), TemporalType.DATE)
 				.setParameter(3, item.getAdjustment().getCustomerModNumber())
 				.setParameter(4, item.getAdjustment().getEntryType().getCodeType())

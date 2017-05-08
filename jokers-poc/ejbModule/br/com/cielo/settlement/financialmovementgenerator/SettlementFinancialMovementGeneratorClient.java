@@ -1,8 +1,8 @@
 package br.com.cielo.settlement.financialmovementgenerator;
 
-import java.util.ArrayList;
-import java.util.Enumeration;
-import java.util.List;
+import br.com.cielo.settlement.entity.SettlementFinancialMovement;
+import com.fasterxml.jackson.databind.ObjectMapper;
+
 import java.util.logging.Logger;
 
 import javax.annotation.PostConstruct;
@@ -10,107 +10,78 @@ import javax.annotation.PreDestroy;
 import javax.ejb.LocalBean;
 import javax.ejb.Stateless;
 import javax.jms.JMSException;
-import javax.jms.ObjectMessage;
 import javax.jms.Queue;
-import javax.jms.QueueBrowser;
 import javax.jms.QueueConnection;
 import javax.jms.QueueConnectionFactory;
 import javax.jms.QueueSender;
 import javax.jms.QueueSession;
 import javax.jms.Session;
+import javax.jms.TextMessage;
 import javax.naming.InitialContext;
 import javax.naming.NamingException;
 
-import br.com.cielo.settlement.entity.SettlementFinancialMovement;
-
 /**
- * Classe responsável por enviar mensagem para fila de geração de movimentação financeira
+ * Classe responsï¿½vel por enviar mensagem para fila de geraï¿½ï¿½o de movimentaï¿½ï¿½o financeira.
  */
 @Stateless
 @LocalBean
 public class SettlementFinancialMovementGeneratorClient {
-	public final static String JNDI_FACTORY = "weblogic.jndi.WLInitialContextFactory";
-	public final static String JMS_FACTORY = "settlementFinancialMovementGeneratorCF";
-	public final static String QUEUE = "settlementFinancialMovementGeneratorQueue";
+  public static final String JNDI_FACTORY = "weblogic.jndi.WLInitialContextFactory";
+  public static final String JMS_FACTORY = "settlementFinancialMovementGeneratorCF";
+  public static final String QUEUE = "settlementFinancialMovementGeneratorQueue";
 
-	private QueueSession session = null;
-    private QueueSender sender = null;
-    private QueueConnection connection = null;
-    private Queue destQueue;
-    private Queue destQueueDLQ;
+  private QueueSession session = null;
+  private QueueSender sender = null;
+  private QueueConnection connection = null;
+  private Queue destQueue;
 
-    @PostConstruct
-    public void init() {
-        try {
-            InitialContext ic = new InitialContext();
-            QueueConnectionFactory qcf = (QueueConnectionFactory) ic
-                            .lookup(JMS_FACTORY);
-            this.destQueue = (Queue) ic.lookup(QUEUE);
-            this.destQueueDLQ = (Queue) ic.lookup(QUEUE);
+  /**
+   * MÃ©todo para inicializar variÃ¡veis de contexto da fila.
+   */
+  @PostConstruct
+  public void init() {
+    try {
+      InitialContext ic = new InitialContext();
+      QueueConnectionFactory qcf = (QueueConnectionFactory) ic.lookup(JMS_FACTORY);
+      this.destQueue = (Queue) ic.lookup(QUEUE);
 
-            this.connection = qcf.createQueueConnection();
-            this.session = this.connection.createQueueSession(false, Session.AUTO_ACKNOWLEDGE);
-            this.sender = this.session.createSender(this.destQueue);
-            // this.sender.setDeliveryMode(DeliveryMode.NON_PERSISTENT);
-            ic.close();
-        } catch (NamingException | JMSException e) {
-            e.printStackTrace();
-        }
+      this.connection = qcf.createQueueConnection();
+      this.session = this.connection.createQueueSession(false, Session.AUTO_ACKNOWLEDGE);
+      this.sender = this.session.createSender(this.destQueue);
+      ic.close();
+    } catch (NamingException | JMSException e) {
+      e.printStackTrace();
     }
+  }
 
-    @PreDestroy
-    public void finilize() {
-        try {
-            this.connection.close();
-        } catch (JMSException e) {
-            e.printStackTrace();
-        }
+  /**
+   * MÃ©todo que encerra conexÃµes com a fila.
+   */
+  @PreDestroy
+  public void finilize() {
+    try {
+      this.connection.close();
+      this.session.close();
+      this.sender.close();
+    } catch (JMSException e) {
+      e.printStackTrace();
     }
+  }
 
-    /**
-     * Envia os produtos a serem atualizados para a fila.
-     *
-     * @param productsToUpdate
-     */
-    public void send(final SettlementFinancialMovement financialMovement) {
-        try {
-//    		Logger.getLogger(this.getClass().getName()).info("SettlementFinancialMovementGeneratorClient: "+financialMovement);
-            ObjectMessage objectMessage = this.session.createObjectMessage(financialMovement);
-            this.sender.send(objectMessage);
-        } catch (JMSException e) {
-            Logger.getLogger(this.getClass().getName()).info("SettlementFinancialMovementGeneratorClient.send" + e);
-        }
+  /**
+   * Envia mensagem de movimento financeiro para a fila do "JOB 1010".
+   * 
+   * @param financialMovement - Movimento financeiro
+   */
+  public void send(final SettlementFinancialMovement financialMovement) {
+    try {
+      ObjectMapper mapper = new ObjectMapper();
+      TextMessage message =
+          this.session.createTextMessage(mapper.writeValueAsString(financialMovement));
+      this.sender.send(message);
+    } catch (Exception e) {
+      Logger.getLogger(this.getClass().getName())
+          .info("SettlementFinancialMovementGeneratorClient.send" + e);
     }
-
-    public List<ObjectMessage> browseQueue() {
-        return this.browse(this.destQueue);
-    }
-
-    public List<ObjectMessage> browseQueueDLQ() {
-        return this.browse(this.destQueueDLQ);
-    }
-
-    private List<ObjectMessage> browse(final Queue destQueue) {
-        List<ObjectMessage> list = new ArrayList<ObjectMessage>();
-
-        try {
-            QueueBrowser browser;
-            browser = this.session.createBrowser(destQueue);
-
-            @SuppressWarnings("rawtypes")
-            Enumeration msgs = browser.getEnumeration();
-
-            if (!msgs.hasMoreElements()) {
-                System.out.println("No messages in queue");
-            } else {
-                while (msgs.hasMoreElements()) {
-                    ObjectMessage objectMessage = (ObjectMessage) msgs.nextElement();
-                    list.add(objectMessage);
-                }
-            }
-        } catch (JMSException e) {
-            e.printStackTrace();
-        }
-        return list;
-    }
+  }
 }
