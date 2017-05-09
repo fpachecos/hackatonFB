@@ -66,7 +66,7 @@ public class EntryType implements Serializable {
   /**
    * Campo String descriptionType
    */
-  private transient String descriptionType;
+  private String descriptionType;
 
   /**
    * M�todo construtor para criar o objeto EntryType.
