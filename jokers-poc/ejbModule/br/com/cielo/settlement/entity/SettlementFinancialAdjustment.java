@@ -14,8 +14,8 @@ import java.util.List;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
+import br.com.cielo.dataextractor.CamposEnum;
 import br.com.cielo.settlement.request.entity.enums.RequestTypeEnum;
-import br.com.cielo.test.CamposEnum;
 
 /**
  * Entidade representando a tabela TBSETR_FINANCE_ADJUSTMENT_REQ
